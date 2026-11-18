@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Competências e Estudos em TI</title>
+<link rel="stylesheet" href="assets/tema.css">
+<style>
+  section + section { margin-top: 40px; }
+  .section-head { margin-bottom: 16px; }
+  .section-head h2 { font-size: 1.375rem; margin-bottom: 8px; }
+  .section-head p { color: var(--text-secondary); margin: 0; max-width: 70ch; }
+
+  /* Seção 7: competências */
+  .comp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .comp { display: flex; flex-direction: column; margin: 0; }
+  .comp .num {
+    width: 32px; height: 32px; border-radius: 50%; flex: none;
+    display: grid; place-items: center; font-weight: 600; font-size: .9375rem;
+    background: var(--accent); color: #fff;
+  }
+  .comp header { display: flex; gap: 12px; align-items: center; margin-bottom: 8px; }
+  .comp h3 { font-size: 1.0625rem; margin: 0; line-height: 1.3; }
+  .comp .resumo { margin: 0 0 12px; }
+  .comp h4 { font-size: .8125rem; text-transform: uppercase; letter-spacing: .04em; color: var(--text-muted); margin: 12px 0 4px; }
+  .comp p, .comp li { font-size: .9375rem; }
+  .comp p.why { color: var(--text-secondary); margin: 0; }
+  .comp ul { margin: 0; padding-left: 20px; color: var(--text-secondary); }
+  .comp li + li { margin-top: 4px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 12px; }
+  .chip {
+    font-size: .8125rem; text-decoration: none; color: var(--text-primary);
+    border: 1px solid var(--border); border-radius: 999px; padding: 3px 10px;
+    background: var(--surface-0);
+  }
+  .chip:hover { border-color: var(--accent); }
+
+  /* Seção 8: etapas */
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+  .step { margin: 0; }
+  .step .when { font-size: .8125rem; color: var(--text-muted); margin: 2px 0 8px; }
+  .step h3 { font-size: 1.0625rem; margin: 0; }
+  .step ul.obj { margin: 0 0 12px; padding-left: 20px; color: var(--text-secondary); font-size: .9375rem; }
+  .res-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+  .res {
+    display: block; text-decoration: none; color: inherit;
+    border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px;
+    background: var(--surface-0);
+  }
+  .res:hover { border-color: var(--accent); }
+  .res .name { font-weight: 600; font-size: .9375rem; color: var(--accent); }
+  .res .desc { font-size: .875rem; color: var(--text-secondary); margin: 2px 0 6px; }
+  .res .meta { font-size: .75rem; color: var(--text-muted); }
+
+  .two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 16px; }
+  .two-col h3 { font-size: 1.0625rem; margin: 0 0 8px; }
+  .two-col ul { margin: 0; padding-left: 20px; color: var(--text-secondary); font-size: .9375rem; }
+  .two-col li + li { margin-top: 6px; }
+  .card.highlight { border-left: 4px solid var(--accent); }
+  .disclaimer { font-size: .8125rem; color: var(--text-muted); margin-top: 32px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="site-nav" aria-label="Seções">
+    <a href="estatisticas.html">Dados de trancamento</a>
+    <a href="trilha-ti.html" aria-current="page">Competências e por onde começar</a>
+  </nav>
+
+  <div id="error" class="error" hidden></div>
+
+  <section aria-labelledby="h-comp">
+    <div class="section-head">
+      <h2 id="h-comp"></h2>
+      <p id="comp-intro"></p>
+    </div>
+    <div class="comp-grid" id="comp-grid"></div>
+  </section>
+
+  <section aria-labelledby="h-rec">
+    <div class="section-head">
+      <h2 id="h-rec"></h2>
+      <p id="rec-intro"></p>
+    </div>
+    <ol class="steps" id="steps"></ol>
+    <div class="two-col">
+      <div class="card">
+        <h3 id="h-habitos"></h3>
+        <ul id="habitos"></ul>
+      </div>
+      <div class="card highlight">
+        <h3 id="h-trancar"></h3>
+        <p class="sub" id="trancar-texto" style="margin-bottom:8px"></p>
+        <ul id="trancar"></ul>
+      </div>
+    </div>
+  </section>
+
+  <p class="disclaimer" id="disclaimer"></p>
+</main>
+
+<script>
+(() => {
+  "use strict";
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const safeUrl = u => /^https:\/\//.test(u) ? u : "#";
+  const list = items => items.map(t => `<li>${esc(t)}</li>`).join("");
+
+  function chip(res) {
+    return `<a class="chip" href="${esc(safeUrl(res.url))}" target="_blank" rel="noopener noreferrer">${esc(res.nome)}<span class="visually-hidden"> (abre em nova aba)</span></a>`;
+  }
+  function resCard(res) {
+    return `<a class="res" href="${esc(safeUrl(res.url))}" target="_blank" rel="noopener noreferrer">
+      <div class="name">${esc(res.nome)} ↗</div>
+      <div class="desc">${esc(res.descricao)}</div>
+      <div class="meta">${esc(res.idioma)} · ${esc(res.custo)}</div></a>`;
+  }
+
+  function render(c) {
+    const R = c.recursos;
+    const pick = ids => ids.filter(id => R[id]).map(id => R[id]);
+
+    $("h-comp").textContent = c.competencias.titulo;
+    $("comp-intro").textContent = c.competencias.introducao;
+    $("comp-grid").innerHTML = c.competencias.itens.map((it, i) => `
+      <article class="card comp" aria-labelledby="comp-${esc(it.id)}">
+        <header><span class="num" aria-hidden="true">${i + 1}</span>
+          <h3 id="comp-${esc(it.id)}">${esc(it.titulo)}</h3></header>
+        <p class="resumo">${esc(it.resumo)}</p>
+        <h4>Por que importa</h4>
+        <p class="why">${esc(it.por_que_importa)}</p>
+        <h4>Como desenvolver</h4>
+        <ul>${list(it.como_desenvolver)}</ul>
+        <div class="chips" aria-label="Materiais sugeridos">${pick(it.recursos).map(chip).join("")}</div>
+      </article>`).join("");
+
+    const rec = c.recomendacoes;
+    $("h-rec").textContent = rec.titulo;
+    $("rec-intro").textContent = rec.introducao;
+    $("steps").innerHTML = rec.etapas.map(e => `
+      <li class="card step">
+        <h3>${esc(e.titulo)}</h3>
+        <p class="when">${esc(e.quando)}</p>
+        <ul class="obj">${list(e.objetivos)}</ul>
+        <div class="res-list">${pick(e.recursos).map(resCard).join("")}</div>
+      </li>`).join("");
+
+    $("h-habitos").textContent = rec.habitos.titulo;
+    $("habitos").innerHTML = list(rec.habitos.itens);
+    $("h-trancar").textContent = rec.antes_de_trancar.titulo;
+    $("trancar-texto").textContent = rec.antes_de_trancar.texto;
+    $("trancar").innerHTML = list(rec.antes_de_trancar.itens);
+
+    $("disclaimer").textContent =
+      `${c.aviso} Versão ${c.versao}, revisada em ${c.revisado_em.split("-").reverse().join("/")}.`;
+  }
+
+  fetch("conteudo/trilha-ti.json")
+    .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
+    .then(render)
+    .catch(err => {
+      const box = $("error");
+      box.hidden = false;
+      box.innerHTML = `<strong>Não foi possível carregar o conteúdo.</strong> ${esc(err.message)}.
+        Abra a página por um servidor (ex.: <code>python -m http.server 5173 --directory web</code>),
+        não direto pelo arquivo.`;
+    });
+})();
+</script>
+</body>
+</html>

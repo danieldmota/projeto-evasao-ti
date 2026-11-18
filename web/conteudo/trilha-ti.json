@@ -1,0 +1,278 @@
+{
+  "versao": "1.0.0",
+  "revisado_em": "2026-11-18",
+  "status": "rascunho para revisão da equipe",
+  "aviso": "Conteúdo editorial de orientação. Os materiais indicados são de terceiros, gratuitos na data da revisão, e podem mudar; confira os links antes de cada publicação.",
+
+  "competencias": {
+    "titulo": "Cinco competências que você desenvolve (e precisa desenvolver) na área de TI",
+    "introducao": "Ninguém entra na faculdade sabendo tudo isso. Estas são habilidades que se constroem com prática ao longo do curso. Conhecê-las desde o início ajuda a planejar os estudos e a entender que dificuldade no começo faz parte do processo, não é sinal de que a área não é para você.",
+    "itens": [
+      {
+        "id": "logica",
+        "titulo": "Lógica e resolução de problemas",
+        "resumo": "Quebrar um problema grande em partes menores e descrever, passo a passo, como resolvê-lo.",
+        "por_que_importa": "É a base de toda a programação. As primeiras disciplinas de algoritmos exigem esse raciocínio, e quem treina antes chega mais seguro.",
+        "como_desenvolver": [
+          "Resolver exercícios curtos de lógica todos os dias, mesmo que por 20 minutos.",
+          "Antes de programar, escrever a solução em português, em tópicos.",
+          "Usar ferramentas que mostram o programa rodando linha a linha para entender o que acontece."
+        ],
+        "recursos": ["curso-em-video", "cs50", "python-tutor"]
+      },
+      {
+        "id": "matematica",
+        "titulo": "Base matemática aplicada à computação",
+        "resumo": "Lógica matemática, funções, porcentagem, noções de estatística e, depois, matemática discreta e cálculo.",
+        "por_que_importa": "As disciplinas de matemática do início do curso costumam ser as que mais assustam. Revisar a base do ensino médio antes de começar faz muita diferença.",
+        "como_desenvolver": [
+          "Revisar conteúdos do ensino médio em que você tem dúvida, sem pular etapas.",
+          "Relacionar a matemática com programação: escreva pequenos programas que calculem o que você está estudando.",
+          "Procurar monitoria ou grupos de estudo assim que surgir a primeira dúvida, sem deixar acumular."
+        ],
+        "recursos": ["khan-matematica", "obmep"]
+      },
+      {
+        "id": "programacao",
+        "titulo": "Programação com prática constante",
+        "resumo": "Escrever código de verdade, errar, ler as mensagens de erro e corrigir, em projetos pequenos e frequentes.",
+        "por_que_importa": "Programar se aprende fazendo. Assistir a aulas ajuda, mas o que consolida o aprendizado é a prática regular e o uso das ferramentas que o mercado usa, como Git e GitHub.",
+        "como_desenvolver": [
+          "Escolher uma primeira linguagem (Python é uma boa porta de entrada) e ficar nela até dominar o básico.",
+          "Fazer projetos pequenos ligados ao seu dia a dia: uma calculadora de gastos, um organizador de tarefas.",
+          "Guardar seus projetos no GitHub desde o início: isso vira portfólio."
+        ],
+        "recursos": ["python-tutorial", "exercism", "freecodecamp", "pro-git", "learn-git-branching"]
+      },
+      {
+        "id": "autonomia",
+        "titulo": "Autonomia e hábitos de estudo",
+        "resumo": "Organizar o próprio tempo, pesquisar sozinho, ler documentação e aprender inglês técnico aos poucos.",
+        "por_que_importa": "A tecnologia muda rápido, e boa parte do aprendizado acontece fora da sala de aula. Para quem trabalha e estuda, organizar a rotina é o que permite seguir no curso.",
+        "como_desenvolver": [
+          "Montar um horário semanal realista de estudo, considerando trabalho e deslocamento.",
+          "Ao travar, pesquisar a mensagem de erro e ler a documentação oficial antes de desistir.",
+          "Praticar inglês um pouco por dia: a maior parte da documentação e das ferramentas está em inglês."
+        ],
+        "recursos": ["mdn", "duolingo", "roadmap"]
+      },
+      {
+        "id": "colaboracao",
+        "titulo": "Comunicação e trabalho em equipe",
+        "resumo": "Explicar ideias com clareza, pedir e oferecer ajuda e trabalhar em projetos com outras pessoas.",
+        "por_que_importa": "Software é feito em equipe. E estudar em grupo aumenta o sentimento de pertencimento, que ajuda a atravessar os semestres mais difíceis.",
+        "como_desenvolver": [
+          "Participar de grupos de estudo, monitorias e comunidades da sua instituição.",
+          "Explicar para um colega algo que você acabou de aprender: ensinar fixa o conteúdo.",
+          "Fazer um projeto em dupla usando GitHub para dividir as tarefas."
+        ],
+        "recursos": ["github-docs", "freecodecamp"]
+      }
+    ]
+  },
+
+  "recomendacoes": {
+    "titulo": "Por onde começar: recomendações de estudo para iniciantes",
+    "introducao": "Um caminho sugerido, em etapas. Não é preciso seguir à risca nem terminar uma etapa para começar a outra. O importante é manter a constância. Todos os materiais abaixo são gratuitos.",
+    "etapas": [
+      {
+        "id": "primeiros-passos",
+        "titulo": "1. Primeiros passos em lógica e programação",
+        "quando": "Antes do curso ou nas primeiras semanas",
+        "objetivos": [
+          "Entender variáveis, condições (se/senão) e repetições.",
+          "Escrever e rodar seus primeiros programas em Python."
+        ],
+        "recursos": ["curso-em-video", "cs50", "python-tutorial", "python-tutor"]
+      },
+      {
+        "id": "base-matematica",
+        "titulo": "2. Revisar a base de matemática",
+        "quando": "Em paralelo à etapa 1",
+        "objetivos": [
+          "Rever frações, porcentagem, funções e equações.",
+          "Chegar às disciplinas de matemática do curso sem lacunas do ensino médio."
+        ],
+        "recursos": ["khan-matematica", "obmep"]
+      },
+      {
+        "id": "ferramentas",
+        "titulo": "3. Ferramentas do dia a dia",
+        "quando": "Primeiro semestre",
+        "objetivos": [
+          "Usar Git para versionar seus códigos.",
+          "Criar um perfil no GitHub e publicar seus primeiros projetos."
+        ],
+        "recursos": ["pro-git", "learn-git-branching", "github-docs"]
+      },
+      {
+        "id": "pratica",
+        "titulo": "4. Praticar com exercícios e projetos",
+        "quando": "Durante todo o curso",
+        "objetivos": [
+          "Resolver exercícios com frequência para ganhar fluência.",
+          "Construir uma página web simples e consultar dados com SQL."
+        ],
+        "recursos": ["exercism", "freecodecamp", "mdn", "sqlbolt"]
+      },
+      {
+        "id": "explorar",
+        "titulo": "5. Explorar as áreas da TI",
+        "quando": "A partir do segundo semestre",
+        "objetivos": [
+          "Conhecer caminhos como desenvolvimento web, dados, infraestrutura e segurança.",
+          "Entender estruturas de dados de forma visual."
+        ],
+        "recursos": ["roadmap", "visualgo", "kaggle-learn", "fundacao-bradesco"]
+      }
+    ],
+    "habitos": {
+      "titulo": "Hábitos que ajudam a seguir no curso",
+      "itens": [
+        "Estude um pouco todos os dias em vez de muito só na véspera da prova.",
+        "Procure ajuda cedo: monitoria, professores e colegas existem para isso.",
+        "Compare seu progresso com você mesmo de um mês atrás, não com os outros.",
+        "Descanse. Sono e pausas fazem parte do aprendizado."
+      ]
+    },
+    "antes_de_trancar": {
+      "titulo": "Pensando em trancar?",
+      "texto": "Trancar pode ser a decisão certa em alguns momentos, e é um direito seu. Antes de decidir, vale conhecer as alternativas que muitas instituições oferecem:",
+      "itens": [
+        "Conversar com a coordenação do curso sobre reduzir o número de disciplinas no semestre.",
+        "Procurar monitoria, nivelamento ou reforço nas disciplinas em que você está com dificuldade.",
+        "Buscar o apoio psicopedagógico ou o atendimento ao estudante da instituição.",
+        "Informar-se sobre bolsas, financiamento e assistência estudantil, se a dificuldade for financeira."
+      ]
+    }
+  },
+
+  "recursos": {
+    "curso-em-video": {
+      "nome": "Curso em Vídeo",
+      "url": "https://www.cursoemvideo.com/",
+      "descricao": "Cursos em vídeo de algoritmos, Python, HTML e outros temas, com linguagem acessível.",
+      "idioma": "pt-BR",
+      "custo": "gratuito"
+    },
+    "cs50": {
+      "nome": "CS50x — Introdução à Ciência da Computação (Harvard)",
+      "url": "https://cs50.harvard.edu/x/",
+      "descricao": "Curso introdutório completo, com aulas, exercícios e projetos.",
+      "idioma": "inglês (vídeos com legendas)",
+      "custo": "gratuito"
+    },
+    "python-tutorial": {
+      "nome": "Tutorial oficial do Python",
+      "url": "https://docs.python.org/pt-br/3/tutorial/",
+      "descricao": "Documentação oficial da linguagem, traduzida para o português.",
+      "idioma": "pt-BR",
+      "custo": "gratuito"
+    },
+    "python-tutor": {
+      "nome": "Python Tutor",
+      "url": "https://pythontutor.com/",
+      "descricao": "Mostra seu código executando passo a passo, com as variáveis na tela.",
+      "idioma": "inglês (uso visual)",
+      "custo": "gratuito"
+    },
+    "khan-matematica": {
+      "nome": "Khan Academy — Matemática",
+      "url": "https://pt.khanacademy.org/math",
+      "descricao": "Aulas e exercícios de matemática do básico ao avançado.",
+      "idioma": "pt-BR",
+      "custo": "gratuito"
+    },
+    "obmep": {
+      "nome": "Portal da Matemática (OBMEP/IMPA)",
+      "url": "https://portaldaobmep.impa.br/",
+      "descricao": "Videoaulas e materiais de matemática do ensino fundamental e médio.",
+      "idioma": "pt-BR",
+      "custo": "gratuito"
+    },
+    "pro-git": {
+      "nome": "Livro Pro Git",
+      "url": "https://git-scm.com/book/pt-br/v2",
+      "descricao": "Livro oficial do Git, em português.",
+      "idioma": "pt-BR",
+      "custo": "gratuito"
+    },
+    "learn-git-branching": {
+      "nome": "Learn Git Branching",
+      "url": "https://learngitbranching.js.org/?locale=pt_BR",
+      "descricao": "Exercícios interativos e visuais para aprender Git.",
+      "idioma": "pt-BR",
+      "custo": "gratuito"
+    },
+    "github-docs": {
+      "nome": "Documentação do GitHub — Introdução",
+      "url": "https://docs.github.com/pt/get-started",
+      "descricao": "Como criar sua conta, seus repositórios e colaborar em projetos.",
+      "idioma": "pt-BR",
+      "custo": "gratuito"
+    },
+    "exercism": {
+      "nome": "Exercism",
+      "url": "https://exercism.org/",
+      "descricao": "Exercícios de programação em dezenas de linguagens, com mentoria voluntária.",
+      "idioma": "inglês",
+      "custo": "gratuito"
+    },
+    "freecodecamp": {
+      "nome": "freeCodeCamp em português",
+      "url": "https://www.freecodecamp.org/portuguese/",
+      "descricao": "Artigos, tutoriais e trilhas práticas de desenvolvimento.",
+      "idioma": "pt-BR",
+      "custo": "gratuito"
+    },
+    "mdn": {
+      "nome": "MDN Web Docs — Aprenda desenvolvimento web",
+      "url": "https://developer.mozilla.org/pt-BR/docs/Learn",
+      "descricao": "Referência e tutoriais de HTML, CSS e JavaScript.",
+      "idioma": "pt-BR",
+      "custo": "gratuito"
+    },
+    "sqlbolt": {
+      "nome": "SQLBolt",
+      "url": "https://www.sqlbolt.com/",
+      "descricao": "Lições interativas e curtas de SQL, a linguagem dos bancos de dados.",
+      "idioma": "inglês",
+      "custo": "gratuito"
+    },
+    "roadmap": {
+      "nome": "roadmap.sh",
+      "url": "https://roadmap.sh/",
+      "descricao": "Mapas visuais do que estudar em cada carreira de TI.",
+      "idioma": "inglês",
+      "custo": "gratuito"
+    },
+    "visualgo": {
+      "nome": "VisuAlgo",
+      "url": "https://visualgo.net/pt",
+      "descricao": "Animações de estruturas de dados e algoritmos.",
+      "idioma": "pt-BR (parcial)",
+      "custo": "gratuito"
+    },
+    "kaggle-learn": {
+      "nome": "Kaggle Learn",
+      "url": "https://www.kaggle.com/learn",
+      "descricao": "Microcursos práticos de Python, análise de dados e aprendizado de máquina.",
+      "idioma": "inglês",
+      "custo": "gratuito"
+    },
+    "fundacao-bradesco": {
+      "nome": "Escola Virtual — Fundação Bradesco",
+      "url": "https://www.ev.org.br/",
+      "descricao": "Cursos online de tecnologia com certificado.",
+      "idioma": "pt-BR",
+      "custo": "gratuito"
+    },
+    "duolingo": {
+      "nome": "Duolingo",
+      "url": "https://www.duolingo.com/",
+      "descricao": "Prática diária de inglês em poucos minutos.",
+      "idioma": "pt-BR → inglês",
+      "custo": "gratuito (com plano pago opcional)"
+    }
+  }
+}

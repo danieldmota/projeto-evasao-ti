@@ -43,7 +43,12 @@ python -m http.server 5173 --bind 127.0.0.1 --directory web
 ```
 Para outra API: `estatisticas.html?api=https://minha-api/api/v1`. A origem da página precisa estar em `EVASAO_CORS_ORIGINS`. Abrir o arquivo direto (`file://`) não funciona por causa do CORS.
 
-Ela serve de referência visual e de contrato. Quando o site definitivo existir, os gráficos podem ser portados para o framework escolhido, mantendo as mesmas chamadas e regras de apresentação.
+### Seções 7 e 8: `web/trilha-ti.html`
+Cinco competências de TI e recomendações de estudo para iniciantes. O texto fica em [`web/conteudo/trilha-ti.json`](../web/conteudo/trilha-ti.json), fonte única que o site definitivo também pode consumir. Para editar o conteúdo, altere só o JSON, incremente `versao` e atualize `revisado_em`. O teste `tests/test_conteudo.py` garante a estrutura: exatamente 5 competências, recursos referenciados existentes, links https e materiais gratuitos. Antes de cada publicação, confira se os links externos continuam no ar.
+
+As duas páginas compartilham o tema em `web/assets/tema.css` (tokens de cor claro/escuro e navegação).
+
+Elas servem de referência visual e de contrato. Quando o site definitivo existir, os gráficos podem ser portados para o framework escolhido, mantendo as mesmas chamadas e regras de apresentação.
 
 ## 2. Formulário vocacional (quando o HTML chegar)
 
