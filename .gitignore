@@ -35,3 +35,8 @@ Thumbs.db
 
 # Notebook original do Colab
 .ipynb_checkpoints/
+
+# Vercel (configuração local do projeto)
+.vercel
+
+.vercel
