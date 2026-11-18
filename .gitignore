@@ -1,0 +1,42 @@
+# Ambiente
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Configuração local (pode conter segredos)
+.env
+
+# Dados: nunca versionar microdados nem bases derivadas grandes
+data/raw/
+data/staging/
+data/warehouse/
+data/reports/
+*.zip
+*.part
+*.CSV
+*.csv.gz
+*.parquet
+*.duckdb
+*.duckdb.wal
+
+# Exceção: fixtures sintéticas pequenas e a tabela de correspondência versionada
+!tests/fixtures/**
+!src/evasao_ti/classification/data/*.csv
+
+# Editores / SO
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Notebook original do Colab (mantido apenas como referência local)
+.ipynb_checkpoints/
