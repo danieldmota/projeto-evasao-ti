@@ -3,12 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%231f1b16%22/%3E%3Ctext x=%2216%22 y=%2222%22 font-family=%22Georgia,serif%22 font-size=%2216%22 font-style=%22italic%22 fill=%22%23f7f5ef%22 text-anchor=%22middle%22%3ETI%3C/text%3E%3C/svg%3E">
 <title>Trancamento no Ensino Superior</title>
 <script src="assets/tema.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&display=swap">
 <link rel="stylesheet" href="assets/tema.css">
+<link rel="stylesheet" href="assets/graficos.css">
 <style>
   /* ---- abertura: manchete escrita a partir dos dados ---- */
   .intro { max-width: 52rem; margin-bottom: var(--space-l); }
@@ -47,42 +49,13 @@
   .fig-head { margin-bottom: var(--space-s); max-width: var(--measure); }
   .fig-head h2 { font-size: var(--step-2); margin: 4px 0 6px; }
   .fig-head p { margin: 0; color: var(--ink-2); font-size: var(--step--1); }
-  .source { font-size: var(--step--2); color: var(--ink-3); margin: var(--space-s) 0 0; }
   .split { display: grid; gap: var(--space-m) var(--space-l); }
   @media (min-width: 880px) {
     .split { grid-template-columns: minmax(0, 5fr) minmax(0, 8fr); align-items: start; }
     .split .fig-head { position: sticky; top: var(--space-m); }
   }
   .fig-head .takeaway { font-family: var(--font-display); font-size: var(--step-1); line-height: 1.4; color: var(--ink); margin: var(--space-s) 0 0; }
-
-  .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0 0 var(--space-s); padding: 0; list-style: none; font-size: var(--step--1); color: var(--ink-2); }
-  .legend li { display: flex; align-items: center; gap: 7px; }
-  .legend .sw { width: 16px; height: 3px; border-radius: 2px; }
-
-  .chart { position: relative; width: 100%; }
-  .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
-  .chart text { font-family: var(--font-body); }
-  .tooltip {
-    position: absolute; pointer-events: none; z-index: 2;
-    background: var(--paper); color: var(--ink);
-    border: 1px solid var(--rule); border-radius: 8px; box-shadow: var(--shadow);
-    padding: 10px 12px; font-size: var(--step--1); min-width: 200px;
-    opacity: 0; transform: translateY(4px);
-    transition: opacity .12s var(--ease-out), transform .12s var(--ease-out);
-  }
-  .tooltip.on { opacity: 1; transform: none; }
-  .tooltip .t-title { font-family: var(--font-display); font-weight: 600; font-size: var(--step-0); margin-bottom: 6px; }
-  .tooltip .row { display: flex; align-items: center; gap: 10px; justify-content: space-between; font-variant-numeric: tabular-nums; }
-  .tooltip .row + .row { margin-top: 2px; }
-  .tooltip .row span:first-child { display: flex; align-items: center; gap: 7px; color: var(--ink-2); }
-  .tooltip .k { width: 8px; height: 8px; border-radius: 50%; flex: none; }
-
   .figure details { margin-top: var(--space-s); }
-  .table-wrap { overflow-x: auto; margin-top: var(--space-xs); }
-  table { border-collapse: collapse; width: 100%; font-size: var(--step--1); font-variant-numeric: tabular-nums; }
-  th, td { padding: 7px 10px; border-bottom: 1px solid var(--rule); text-align: right; white-space: nowrap; }
-  th:first-child, td:first-child { text-align: left; }
-  th { color: var(--ink-3); font-weight: 700; font-size: var(--step--2); letter-spacing: .06em; text-transform: uppercase; }
 
   /* ---- notas de leitura (estilo nota de rodapé) ---- */
   .notes { border-top: 1px solid var(--rule); padding-top: var(--space-m); }
@@ -97,8 +70,9 @@
 <body>
 <div class="page">
   <header class="masthead">
-    <a class="brand" href="estatisticas.html">Permanência <span>em TI</span></a>
+    <a class="brand" href="index.html">Permanência <span>em TI</span></a>
     <nav class="site-nav" aria-label="Seções">
+      <a href="index.html">Jornada</a>
       <a href="estatisticas.html" aria-current="page">Dados de trancamento</a>
       <a href="trilha-ti.html">Competências e por onde começar</a>
     </nav>
@@ -153,7 +127,7 @@
         <p>Matrículas trancadas ÷ (matrículas cursando ou formadas + trancadas). Passe o mouse ou toque no gráfico para ver cada ano.</p>
       </figcaption>
       <ul class="legend" id="legend-annual"></ul>
-      <div class="chart" id="chart-annual"><div class="tooltip" role="status"></div></div>
+      <div class="chart" id="chart-annual"></div>
       <p class="source">Fonte: INEP, microdados do Censo da Educação Superior. Cálculo próprio; não é estatística oficial.</p>
       <details>
         <summary>Ver os dados em tabela</summary>
@@ -169,7 +143,7 @@
         <p class="takeaway" id="takeaway"></p>
       </figcaption>
       <div>
-        <div class="chart" id="chart-summary"><div class="tooltip" role="status"></div></div>
+        <div class="chart" id="chart-summary"></div>
         <details>
           <summary>Ver os dados em tabela</summary>
           <div class="table-wrap" id="table-summary"></div>
@@ -186,387 +160,155 @@
   <footer class="site-foot" id="source"></footer>
 </div>
 
-<script>
-(() => {
-  "use strict";
+<script type="module">
+import {
+  LABEL, pct, compact, nf, esc, legendHTML,
+  renderLines, renderBars, annualTable, summaryTable, apiClient,
+} from "./assets/graficos.js";
 
-  // ------------------------------------------------------------------ config
-  const params = new URLSearchParams(location.search);
-  const API = (params.get("api") || "http://127.0.0.1:8000/api/v1").replace(/\/$/, "");
+const params = new URLSearchParams(location.search);
+const API = (params.get("api") || "http://127.0.0.1:8000/api/v1").replace(/\/$/, "");
+const api = apiClient(API);
+const SCOPE = {
+  modalidade: { "": "", presencial: "cursos presenciais", ead: "cursos a distância" },
+  rede: { "": "", publica: "rede pública", privada: "rede privada" },
+};
+const $ = id => document.getElementById(id);
 
-  const SERIES = [
-    { code: "TI", label: "Tecnologia da Informação" },
-    { code: "EXATAS_EXCETO_TI", label: "Exatas e Tecnologia (exceto TI)" },
-    { code: "NATUREZA_SAUDE", label: "Natureza e Saúde" },
-    { code: "GESTAO_NEGOCIOS", label: "Gestão e Negócios" },
-    { code: "HUMANAS_SOCIAIS_ARTES", label: "Humanas, Sociais e Artes" },
-  ];
-  const LABEL = Object.fromEntries(SERIES.map(s => [s.code, s.label]));
-  const SCOPE = {
-    modalidade: { "": "", presencial: "cursos presenciais", ead: "cursos a distância" },
-    rede: { "": "", publica: "rede pública", privada: "rede privada" },
-  };
-  const color = code => `var(--s-${code})`;
+function showError(err) {
+  const box = $("error");
+  box.hidden = false;
+  $("headline").textContent = "Os dados não carregaram.";
+  $("dek").textContent = "";
+  box.innerHTML = `<strong>Não foi possível falar com a API.</strong> ${esc(err.message)}<br>
+    Rode <code>evasao-ti serve</code> e recarregue a página (endereço esperado:
+    <code>${esc(API)}</code>). Para outro endereço, use <code>?api=URL</code>.`;
+}
 
-  const nf = new Intl.NumberFormat("pt-BR");
-  const pct = (v, d = 1) => v == null ? "sem dado" :
-    (v * 100).toLocaleString("pt-BR", { minimumFractionDigits: d, maximumFractionDigits: d }) + "%";
-  const compact = v => v == null ? "sem dado" :
-    new Intl.NumberFormat("pt-BR", { notation: "compact", maximumFractionDigits: 1 }).format(v);
-  const ordinal = n => `${n}ª`;
+const fstate = { modalidade: "", rede: "" };
+let state = { yearInfo: [], annual: null, summary: null, total: null };
+const filters = () => ({ year_start: $("f-start").value, year_end: $("f-end").value, ...fstate });
 
-  const $ = id => document.getElementById(id);
-  const svgNS = "http://www.w3.org/2000/svg";
-  const el = (tag, attrs = {}, parent) => {
-    const n = document.createElementNS(svgNS, tag);
-    for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
-    if (parent) parent.appendChild(n);
-    return n;
-  };
-  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+async function load() {
+  const f = filters();
+  if (+f.year_start > +f.year_end) { $("f-end").value = f.year_start; f.year_end = f.year_start; }
+  try {
+    const [annual, summary, total] = await Promise.all([
+      api("/statistics/annual", { ...f, group_by: "segmento" }),
+      api("/statistics/summary", { ...f, group_by: "segmento" }),
+      api("/statistics/annual", { ...f, group_by: "total" }),
+    ]);
+    $("error").hidden = true;
+    state = { ...state, annual, summary, total };
+    render();
+  } catch (err) { showError(err); }
+}
 
-  async function api(path, query = {}) {
-    const qs = new URLSearchParams();
-    for (const [k, v] of Object.entries(query)) {
-      if (v === "" || v == null) continue;
-      (Array.isArray(v) ? v : [v]).forEach(x => qs.append(k, x));
-    }
-    const r = await fetch(`${API}${path}${qs.toString() ? "?" + qs : ""}`);
-    const body = await r.json().catch(() => ({}));
-    if (!r.ok) throw new Error(body?.error?.message || `HTTP ${r.status}`);
-    return body;
-  }
+function writeHeadline(years) {
+  const { annual, total } = state;
+  const first = years[0], last = years[years.length - 1];
+  const tiLast = annual.data.find(r => r.ano === last && r.grupo_codigo === "TI");
+  const tiFirst = annual.data.find(r => r.ano === first && r.grupo_codigo === "TI");
+  const all = total.data.find(r => r.ano === last)?.taxa_trancamento;
+  const ti = tiLast?.taxa_trancamento;
+  const scope = [SCOPE.modalidade[fstate.modalidade], SCOPE.rede[fstate.rede]].filter(Boolean).join(", ");
 
-  function showError(err) {
-    const box = $("error");
-    box.hidden = false;
-    $("headline").textContent = "Os dados não carregaram.";
+  $("kicker").textContent = `Ensino superior · graduação${scope ? " · " + scope : ""} · Censo INEP`;
+  if (ti == null) {
+    $("headline").textContent = `Sem dados de TI para ${last} neste recorte.`;
     $("dek").textContent = "";
-    box.innerHTML = `<strong>Não foi possível falar com a API.</strong> ${esc(err.message)}<br>
-      Rode <code>evasao-ti serve</code> e recarregue a página (endereço esperado:
-      <code>${esc(API)}</code>). Para outro endereço, use <code>?api=URL</code>.`;
+    return;
   }
-
-  function niceMax(v) {
-    const step = v > 0.3 ? 0.1 : 0.05;
-    return Math.max(step, Math.ceil(v / step) * step);
+  let comp = "";
+  if (all != null) {
+    if (Math.abs(ti - all) < 0.005) comp = ", praticamente igual à média de todas as áreas";
+    else comp = `, ${ti > all ? "acima" : "abaixo"} da média de todas as áreas (${pct(all)})`;
   }
+  $("headline").innerHTML =
+    `Em ${last}, <em class="num">${pct(ti)}</em> dos vínculos em cursos de TI estavam trancados${comp}.`;
+  const vinc = (tiLast.matriculas ?? 0) + (tiLast.trancadas ?? 0);
+  let dek = `São <strong>${compact(tiLast.trancadas)}</strong> matrículas trancadas em
+    <strong>${nf.format(vinc)}</strong> vínculos de TI.`;
+  if (tiFirst?.taxa_trancamento != null && first !== last) {
+    dek += ` Em ${first}, a taxa era de <strong>${pct(tiFirst.taxa_trancamento)}</strong>.`;
+  }
+  $("dek").innerHTML = dek + " Trancar não é o mesmo que evadir, mas é um sinal de alerta.";
+}
 
-  // ------------------------------------------------------------------ Figura 1: linhas
-  function renderLines(container, rows, years) {
-    container.querySelectorAll("svg").forEach(n => n.remove());
-    const tip = container.querySelector(".tooltip");
-    const W = Math.max(300, container.clientWidth);
-    const narrow = W < 560;
-    const H = narrow ? 270 : 360;
-    const m = { top: 14, right: narrow ? 70 : 110, bottom: 30, left: 44 };
-    const iw = W - m.left - m.right, ih = H - m.top - m.bottom;
+function render() {
+  const { annual, summary } = state;
+  const years = annual.meta.periodo.anos_com_dados;
+  if (!years.length) { $("headline").textContent = "Sem dados no período selecionado."; return; }
+  const first = years[0], last = years[years.length - 1];
 
-    const byKey = new Map(rows.map(r => [`${r.ano}|${r.grupo_codigo}`, r]));
-    // escala só com as séries desenhadas ("Não classificado" fica fora do gráfico)
-    const values = rows.filter(r => LABEL[r.grupo_codigo])
-      .map(r => r.taxa_trancamento).filter(v => v != null);
-    const yMax = niceMax(Math.max(0.01, ...values));
-    const x = i => years.length === 1 ? iw / 2 : (i / (years.length - 1)) * iw;
-    const y = v => ih - (v / yMax) * ih;
+  writeHeadline(years);
+  renderLines($("chart-annual"), annual.data, years);
+  $("table-annual").innerHTML = annualTable(annual.data, years);
+  renderBars($("chart-summary"), summary.data);
+  $("table-summary").innerHTML = summaryTable(summary.data);
+  $("summary-sub").textContent =
+    `Soma de ${first} a ${last}: vínculos-ano, não pessoas. TI = cursos da área CINE 06.`;
 
-    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img",
-      "aria-label": "Gráfico de linhas: taxa de trancamento por ano e área" }, container);
-    const g = el("g", { transform: `translate(${m.left},${m.top})` }, svg);
+  const ranked = summary.data.filter(r => LABEL[r.grupo_codigo] && r.taxa_trancamento != null)
+    .sort((a, b) => b.taxa_trancamento - a.taxa_trancamento);
+  const pos = ranked.findIndex(r => r.grupo_codigo === "TI") + 1;
+  $("takeaway").textContent = pos === 1
+    ? `No período, TI tem a maior taxa de trancamento entre as ${ranked.length} áreas.`
+    : pos > 1 ? `No período, TI fica na ${pos}ª posição entre as ${ranked.length} áreas.` : "";
 
-    const step = yMax > 0.3 ? 0.1 : 0.05;
-    for (let t = 0; t <= yMax + 1e-9; t += step) {
-      el("line", { x1: 0, x2: iw, y1: y(t), y2: y(t), stroke: "var(--grid)", "stroke-width": 1 }, g);
-      const tx = el("text", { x: -10, y: y(t), "text-anchor": "end", "dominant-baseline": "middle",
-        fill: "var(--ink-3)", "font-size": 12 }, g);
-      tx.textContent = Math.round(t * 100) + "%";
-    }
-    const every = narrow ? Math.ceil(years.length / 5) : (years.length > 10 ? 2 : 1);
-    years.forEach((yr, i) => {
-      if (i % every !== 0 && i !== years.length - 1) return;
-      const tx = el("text", { x: x(i), y: ih + 22, "text-anchor": "middle",
-        fill: "var(--ink-3)", "font-size": 12 }, g);
-      tx.textContent = yr;
+  const att = state.yearInfo.filter(y => y.comparabilidade === "atencao" && years.includes(y.ano));
+  const cmp = $("comparability");
+  cmp.hidden = att.length === 0;
+  cmp.innerHTML = att.length ? `<details><summary><span class="kicker">Nota</span>
+    ${att.map(a => a.ano).join(", ")} têm mudanças de coleta ou de classificação. Ver detalhes</summary>
+    <ul>${att.map(a => `<li><strong>${a.ano}:</strong> ${
+      [...a.notas_curadas, ...a.alertas_automaticos].map(esc).join(" ")}</li>`).join("")}</ul></details>` : "";
+
+  const avisos = summary.meta.avisos.filter(a => !a.startsWith("Anos com alerta"));
+  $("notes-list").innerHTML = [
+    "<strong>Unidade:</strong> vínculos aluno–curso no ano. Um mesmo estudante aparece em cada ano em que está vinculado; os números não contam pessoas.",
+    "<strong>Taxa de trancamento</strong> = matrículas trancadas ÷ (matrículas cursando ou formadas + trancadas). Trancamento não é o mesmo que evasão.",
+    "<strong>TI</strong> = cursos da área geral 06 da CINE Brasil (Computação e TIC), como Sistemas de Informação, ADS e Ciência da Computação. Licenciaturas em Computação contam como Educação.",
+    ...avisos.map(esc),
+  ].map(t => `<li>${t}</li>`).join("");
+  $("source").innerHTML = `${esc(summary.meta.fonte.nota)} Fonte: <a href="${esc(summary.meta.fonte.url)}" rel="noopener">${esc(summary.meta.fonte.nome)}, INEP</a>.
+    Classificação: mapeamento v${esc(summary.meta.classificacao.versao_mapeamento)}.
+    <a href="${esc(API)}/methodology" rel="noopener">Metodologia completa</a>.`;
+}
+
+async function init() {
+  $("legend-annual").innerHTML = legendHTML();
+  try {
+    const yrs = await api("/years");
+    state.yearInfo = yrs.data;
+    const available = yrs.data.filter(y => y.status === "disponivel").map(y => y.ano);
+    if (!available.length) throw new Error("A base consolidada não tem anos disponíveis.");
+    const opts = available.map(y => `<option value="${y}">${y}</option>`).join("");
+    $("f-start").innerHTML = opts;
+    $("f-end").innerHTML = opts;
+    $("f-start").value = available[0];
+    $("f-end").value = available[available.length - 1];
+  } catch (err) { showError(err); return; }
+
+  ["f-start", "f-end"].forEach(id => $(id).addEventListener("change", load));
+  document.querySelectorAll(".segmented[data-filter]").forEach(group => {
+    group.addEventListener("click", e => {
+      const b = e.target.closest("button");
+      if (!b) return;
+      fstate[group.dataset.filter] = b.value;
+      group.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+      load();
     });
+  });
+  let t;
+  window.addEventListener("resize", () => {
+    clearTimeout(t);
+    t = setTimeout(() => state.annual && render(), 150);
+  });
+  load();
+}
 
-    const ends = [];
-    for (const s of [...SERIES].reverse()) {          // TI por último = por cima
-      let d = "", pen = false, last = null;
-      years.forEach((yr, i) => {
-        const v = byKey.get(`${yr}|${s.code}`)?.taxa_trancamento;
-        if (v == null) { pen = false; return; }       // ano sem dado = lacuna, nunca zero
-        d += `${pen ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`;
-        pen = true; last = { i, v };
-      });
-      if (!d) continue;
-      el("path", { d, fill: "none", stroke: color(s.code), "stroke-width": s.code === "TI" ? 3 : 2,
-        "stroke-linejoin": "round", "stroke-linecap": "round",
-        opacity: s.code === "TI" ? 1 : 0.9 }, g);
-      if (last) {
-        el("circle", { cx: x(last.i), cy: y(last.v), r: s.code === "TI" ? 5 : 4, fill: color(s.code),
-          stroke: "var(--paper)", "stroke-width": 2 }, g);
-        ends.push({ code: s.code, x: x(last.i), y: y(last.v), v: last.v });
-      }
-    }
-    const ti = ends.find(e => e.code === "TI");
-    if (ti) {
-      const t = el("text", { x: ti.x + 12, y: ti.y, "dominant-baseline": "middle",
-        fill: "var(--ink)", "font-size": 13, "font-weight": 700 }, g);
-      t.textContent = `TI ${pct(ti.v)}`;
-    }
-
-    const cross = el("line", { y1: 0, y2: ih, stroke: "var(--ink-3)", "stroke-width": 1,
-      visibility: "hidden" }, g);
-    const dots = el("g", { visibility: "hidden" }, g);
-    const hit = el("rect", { x: -m.left, y: 0, width: iw + m.left + 20, height: ih,
-      fill: "transparent" }, g);
-
-    const move = evt => {
-      const pt = svg.getBoundingClientRect();
-      const scale = W / pt.width;
-      const px = (evt.clientX - pt.left) * scale - m.left;
-      const i = Math.max(0, Math.min(years.length - 1,
-        Math.round(years.length === 1 ? 0 : (px / iw) * (years.length - 1))));
-      const yr = years[i];
-      cross.setAttribute("x1", x(i)); cross.setAttribute("x2", x(i));
-      cross.setAttribute("visibility", "visible");
-      dots.replaceChildren();
-      const items = SERIES.map(s => ({ s, r: byKey.get(`${yr}|${s.code}`) }))
-        .sort((a, b) => (b.r?.taxa_trancamento ?? -1) - (a.r?.taxa_trancamento ?? -1));
-      for (const { s, r } of items) {
-        if (r?.taxa_trancamento == null) continue;
-        el("circle", { cx: x(i), cy: y(r.taxa_trancamento), r: 4, fill: color(s.code),
-          stroke: "var(--paper)", "stroke-width": 2 }, dots);
-      }
-      dots.setAttribute("visibility", "visible");
-      tip.innerHTML = `<div class="t-title">${yr}</div>` + items.map(({ s, r }) =>
-        `<div class="row"><span><i class="k" style="background:${color(s.code)}"></i>${esc(s.label)}</span>
-         <strong>${pct(r?.taxa_trancamento)}</strong></div>`).join("");
-      const cw = container.clientWidth;
-      const left = (m.left + x(i)) / scale;
-      tip.style.left = Math.max(0, left > cw / 2 ? left - tip.offsetWidth - 14 : left + 14) + "px";
-      tip.style.top = (m.top / scale) + "px";
-      tip.classList.add("on");
-    };
-    const leave = () => {
-      cross.setAttribute("visibility", "hidden");
-      dots.setAttribute("visibility", "hidden");
-      tip.classList.remove("on");
-    };
-    hit.addEventListener("pointermove", move);
-    hit.addEventListener("pointerdown", move);
-    hit.addEventListener("pointerleave", leave);
-  }
-
-  // ------------------------------------------------------------------ Figura 2: barras
-  function renderBars(container, rows) {
-    container.querySelectorAll("svg").forEach(n => n.remove());
-    const tip = container.querySelector(".tooltip");
-    const data = rows.filter(r => LABEL[r.grupo_codigo] && r.taxa_trancamento != null)
-      .sort((a, b) => b.taxa_trancamento - a.taxa_trancamento);
-    const W = Math.max(300, container.clientWidth);
-    const narrow = W < 560;
-    const labelW = narrow ? 0 : 210;
-    const bar = 22, gap = narrow ? 32 : 16;
-    const m = { top: 4, right: 64, bottom: 4, left: labelW };
-    const iw = W - m.left - m.right;
-    const rowH = bar + gap;
-    const H = m.top + m.bottom + data.length * rowH;
-    const xMax = niceMax(Math.max(0.01, ...data.map(d => d.taxa_trancamento)));
-    const xs = v => (v / xMax) * iw;
-
-    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img",
-      "aria-label": "Gráfico de barras: taxa de trancamento consolidada por área" }, container);
-    const g = el("g", { transform: `translate(${m.left},${m.top})` }, svg);
-    el("line", { x1: 0, x2: 0, y1: 0, y2: H - m.top - m.bottom, stroke: "var(--rule)" }, g);
-
-    data.forEach((d, i) => {
-      const top = i * rowH + (narrow ? 18 : gap / 2);
-      const w = Math.max(2, xs(d.taxa_trancamento));
-      const r = Math.min(4, w / 2);
-      const p = `M0,${top} H${w - r} Q${w},${top} ${w},${top + r} V${top + bar - r} Q${w},${top + bar} ${w - r},${top + bar} H0 Z`;
-      const isTI = d.grupo_codigo === "TI";
-      el("path", { d: p, fill: color(d.grupo_codigo) }, g);
-
-      const name = el("text", narrow
-        ? { x: 0, y: top - 6, fill: isTI ? "var(--ink)" : "var(--ink-2)", "font-size": 12,
-            "font-weight": isTI ? 700 : 400 }
-        : { x: -12, y: top + bar / 2, "text-anchor": "end", "dominant-baseline": "middle",
-            fill: isTI ? "var(--ink)" : "var(--ink-2)", "font-size": 13,
-            "font-weight": isTI ? 700 : 400 }, g);
-      name.textContent = LABEL[d.grupo_codigo];
-
-      const val = el("text", { x: w + 8, y: top + bar / 2, "dominant-baseline": "middle",
-        fill: "var(--ink)", "font-size": 13, "font-weight": isTI ? 700 : 400 }, g);
-      val.textContent = pct(d.taxa_trancamento);
-
-      const hit = el("rect", { x: -labelW, y: top - gap / 2, width: W, height: rowH,
-        fill: "transparent" }, g);
-      const show = evt => {
-        tip.innerHTML = `<div class="t-title">${esc(LABEL[d.grupo_codigo])}</div>
-          <div class="row"><span>Taxa de trancamento</span><strong>${pct(d.taxa_trancamento)}</strong></div>
-          <div class="row"><span>Trancadas</span><strong>${nf.format(d.trancadas)}</strong></div>
-          <div class="row"><span>Matrículas</span><strong>${nf.format(d.matriculas)}</strong></div>`;
-        const box = container.getBoundingClientRect();
-        let left = evt.clientX - box.left + 14;
-        if (left + tip.offsetWidth > box.width) left = Math.max(0, evt.clientX - box.left - tip.offsetWidth - 14);
-        tip.style.left = left + "px";
-        tip.style.top = (evt.clientY - box.top + 14) + "px";
-        tip.classList.add("on");
-      };
-      hit.addEventListener("pointermove", show);
-      hit.addEventListener("pointerdown", show);
-      hit.addEventListener("pointerleave", () => tip.classList.remove("on"));
-    });
-  }
-
-  // ------------------------------------------------------------------ tabelas
-  function annualTable(rows, years) {
-    const byKey = new Map(rows.map(r => [`${r.ano}|${r.grupo_codigo}`, r]));
-    let h = `<table><thead><tr><th>Ano</th>${SERIES.map(s => `<th>${esc(s.label)}</th>`).join("")}</tr></thead><tbody>`;
-    for (const yr of years) {
-      h += `<tr><td>${yr}</td>${SERIES.map(s => `<td>${pct(byKey.get(`${yr}|${s.code}`)?.taxa_trancamento)}</td>`).join("")}</tr>`;
-    }
-    return h + "</tbody></table>";
-  }
-  function summaryTable(rows) {
-    const data = rows.filter(r => LABEL[r.grupo_codigo]);
-    return `<table><thead><tr><th>Área</th><th>Matrículas</th><th>Trancadas</th><th>Taxa</th></tr></thead><tbody>` +
-      data.map(r => `<tr><td>${esc(LABEL[r.grupo_codigo])}</td><td>${nf.format(r.matriculas ?? 0)}</td>
-        <td>${nf.format(r.trancadas ?? 0)}</td><td>${pct(r.taxa_trancamento)}</td></tr>`).join("") +
-      "</tbody></table>";
-  }
-
-  // ------------------------------------------------------------------ estado e carga
-  const fstate = { modalidade: "", rede: "" };
-  let state = { yearInfo: [], annual: null, summary: null, total: null };
-
-  function filters() {
-    return { year_start: $("f-start").value, year_end: $("f-end").value, ...fstate };
-  }
-
-  async function load() {
-    const f = filters();
-    if (+f.year_start > +f.year_end) { $("f-end").value = f.year_start; f.year_end = f.year_start; }
-    try {
-      const [annual, summary, total] = await Promise.all([
-        api("/statistics/annual", { ...f, group_by: "segmento" }),
-        api("/statistics/summary", { ...f, group_by: "segmento" }),
-        api("/statistics/annual", { ...f, group_by: "total" }),
-      ]);
-      $("error").hidden = true;
-      state = { ...state, annual, summary, total };
-      render();
-    } catch (err) { showError(err); }
-  }
-
-  function writeHeadline(years) {
-    const { annual, total } = state;
-    const first = years[0], last = years[years.length - 1];
-    const tiLast = annual.data.find(r => r.ano === last && r.grupo_codigo === "TI");
-    const tiFirst = annual.data.find(r => r.ano === first && r.grupo_codigo === "TI");
-    const all = total.data.find(r => r.ano === last)?.taxa_trancamento;
-    const ti = tiLast?.taxa_trancamento;
-    const scope = [SCOPE.modalidade[fstate.modalidade], SCOPE.rede[fstate.rede]].filter(Boolean).join(", ");
-
-    $("kicker").textContent = `Ensino superior · graduação${scope ? " · " + scope : ""} · Censo INEP`;
-    if (ti == null) {
-      $("headline").textContent = `Sem dados de TI para ${last} neste recorte.`;
-      $("dek").textContent = "";
-      return;
-    }
-    let comp = "";
-    if (all != null) {
-      if (Math.abs(ti - all) < 0.005) comp = ", praticamente igual à média de todas as áreas";
-      else comp = `, ${ti > all ? "acima" : "abaixo"} da média de todas as áreas (${pct(all)})`;
-    }
-    $("headline").innerHTML =
-      `Em ${last}, <em class="num">${pct(ti)}</em> dos vínculos em cursos de TI estavam trancados${comp}.`;
-    const vinc = (tiLast.matriculas ?? 0) + (tiLast.trancadas ?? 0);
-    let dek = `São <strong>${compact(tiLast.trancadas)}</strong> matrículas trancadas em
-      <strong>${nf.format(vinc)}</strong> vínculos de TI.`;
-    if (tiFirst?.taxa_trancamento != null && first !== last) {
-      dek += ` Em ${first}, a taxa era de <strong>${pct(tiFirst.taxa_trancamento)}</strong>.`;
-    }
-    $("dek").innerHTML = dek + " Trancar não é o mesmo que evadir, mas é um sinal de alerta.";
-  }
-
-  function render() {
-    const { annual, summary } = state;
-    const years = annual.meta.periodo.anos_com_dados;
-    if (!years.length) { $("headline").textContent = "Sem dados no período selecionado."; return; }
-    const first = years[0], last = years[years.length - 1];
-
-    writeHeadline(years);
-    renderLines($("chart-annual"), annual.data, years);
-    $("table-annual").innerHTML = annualTable(annual.data, years);
-    renderBars($("chart-summary"), summary.data);
-    $("table-summary").innerHTML = summaryTable(summary.data);
-    $("summary-sub").textContent =
-      `Soma de ${first} a ${last}: vínculos-ano, não pessoas. TI = cursos da área CINE 06.`;
-
-    const ranked = summary.data.filter(r => LABEL[r.grupo_codigo] && r.taxa_trancamento != null)
-      .sort((a, b) => b.taxa_trancamento - a.taxa_trancamento);
-    const pos = ranked.findIndex(r => r.grupo_codigo === "TI") + 1;
-    $("takeaway").textContent = pos === 1
-      ? `No período, TI tem a maior taxa de trancamento entre as ${ranked.length} áreas.`
-      : pos > 1 ? `No período, TI fica na ${ordinal(pos)} posição entre as ${ranked.length} áreas.` : "";
-
-    const att = state.yearInfo.filter(y => y.comparabilidade === "atencao" && years.includes(y.ano));
-    const cmp = $("comparability");
-    cmp.hidden = att.length === 0;
-    cmp.innerHTML = att.length ? `<details><summary><span class="kicker">Nota</span>
-      ${att.map(a => a.ano).join(", ")} têm mudanças de coleta ou de classificação. Ver detalhes</summary>
-      <ul>${att.map(a => `<li><strong>${a.ano}:</strong> ${
-        [...a.notas_curadas, ...a.alertas_automaticos].map(esc).join(" ")}</li>`).join("")}</ul></details>` : "";
-
-    const avisos = summary.meta.avisos.filter(a => !a.startsWith("Anos com alerta"));
-    $("notes-list").innerHTML = [
-      "<strong>Unidade:</strong> vínculos aluno–curso no ano. Um mesmo estudante aparece em cada ano em que está vinculado; os números não contam pessoas.",
-      "<strong>Taxa de trancamento</strong> = matrículas trancadas ÷ (matrículas cursando ou formadas + trancadas). Trancamento não é o mesmo que evasão.",
-      "<strong>TI</strong> = cursos da área geral 06 da CINE Brasil (Computação e TIC), como Sistemas de Informação, ADS e Ciência da Computação. Licenciaturas em Computação contam como Educação.",
-      ...avisos.map(esc),
-    ].map(t => `<li>${t}</li>`).join("");
-    $("source").innerHTML = `${esc(summary.meta.fonte.nota)} Fonte: <a href="${esc(summary.meta.fonte.url)}" rel="noopener">${esc(summary.meta.fonte.nome)}, INEP</a>.
-      Classificação: mapeamento v${esc(summary.meta.classificacao.versao_mapeamento)}.
-      <a href="${esc(API)}/methodology" rel="noopener">Metodologia completa</a>.`;
-  }
-
-  async function init() {
-    $("legend-annual").innerHTML = SERIES.map(s =>
-      `<li><span class="sw" style="background:${color(s.code)}"></span>${esc(s.label)}</li>`).join("");
-    try {
-      const yrs = await api("/years");
-      state.yearInfo = yrs.data;
-      const available = yrs.data.filter(y => y.status === "disponivel").map(y => y.ano);
-      if (!available.length) throw new Error("A base consolidada não tem anos disponíveis.");
-      const opts = available.map(y => `<option value="${y}">${y}</option>`).join("");
-      $("f-start").innerHTML = opts;
-      $("f-end").innerHTML = opts;
-      $("f-start").value = available[0];
-      $("f-end").value = available[available.length - 1];
-    } catch (err) { showError(err); return; }
-
-    ["f-start", "f-end"].forEach(id => $(id).addEventListener("change", load));
-    document.querySelectorAll(".segmented[data-filter]").forEach(group => {
-      group.addEventListener("click", e => {
-        const b = e.target.closest("button");
-        if (!b) return;
-        fstate[group.dataset.filter] = b.value;
-        group.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
-        load();
-      });
-    });
-    let t;
-    window.addEventListener("resize", () => {
-      clearTimeout(t);
-      t = setTimeout(() => state.annual && render(), 150);
-    });
-    load();
-  }
-
-  init();
-})();
+init();
 </script>
 </body>
 </html>

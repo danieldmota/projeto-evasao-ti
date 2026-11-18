@@ -1,0 +1,99 @@
+<!--
+  ============================================================================
+  FORMULÁRIO FICTÍCIO — substitua este arquivo pelo HTML oficial.
+  As perguntas e os pesos abaixo existem só para demonstrar o fluxo completo.
+  Não são um instrumento validado de orientação vocacional.
+  ============================================================================
+
+  CONTRATO DE ENCAIXE (o que a jornada espera deste arquivo)
+  1. Um único <form>. Atributos opcionais:
+       data-questionnaire-id="..."      identificador do questionário
+       data-questionnaire-version="..." versão (vai junto com as respostas)
+  2. Cada <fieldset> direto do <form> vira UMA TELA da jornada.
+       <legend>           título da pergunta (obrigatório)
+       <p class="ajuda">  texto de apoio (opcional)
+       data-min / data-max  mínimo/máximo de checkboxes marcados no fieldset
+     Sem <fieldset>, o formulário inteiro vira uma tela só.
+  3. Cada campo precisa de name="id_da_pergunta" (vira question_id no envio).
+     Use os atributos HTML normais de validação: required, min, max, maxlength...
+     data-erro="mensagem" personaliza a mensagem de erro do campo.
+  4. Escalas: <input type="range"> com min/max; data-rotulo-min / data-rotulo-max
+     mostram o significado das pontas.
+  5. Pontuação provisória (opcional): data-pesos="AREA:peso, AREA:peso" em cada
+     opção (radio, checkbox, option) ou na escala (o peso é multiplicado pela
+     posição escolhida, de 0 a 1). Áreas aceitas por padrão: TI,
+     EXATAS_EXCETO_TI, NATUREZA_SAUDE, GESTAO_NEGOCIOS, HUMANAS_SOCIAIS_ARTES
+     (configurável em index.html). Sem data-pesos, configure pontuacao: "api".
+  6. Não coloque <script> aqui: scripts são removidos ao carregar.
+-->
+<form id="form-vocacional" data-questionnaire-id="ficticio" data-questionnaire-version="0.1-demo" novalidate>
+
+  <fieldset data-min="1" data-max="3">
+    <legend>Quais atividades você faria por horas sem ver o tempo passar?</legend>
+    <p class="ajuda">Escolha até 3.</p>
+    <label><input type="checkbox" name="atividades" value="logica" data-pesos="TI:2, EXATAS_EXCETO_TI:2"> Resolver quebra-cabeças e desafios de lógica</label>
+    <label><input type="checkbox" name="atividades" value="criar_apps" data-pesos="TI:3"> Criar sites, jogos ou aplicativos</label>
+    <label><input type="checkbox" name="atividades" value="montar" data-pesos="TI:1, EXATAS_EXCETO_TI:2"> Montar, consertar ou entender como máquinas funcionam</label>
+    <label><input type="checkbox" name="atividades" value="cuidar" data-pesos="NATUREZA_SAUDE:3"> Cuidar de pessoas ou animais</label>
+    <label><input type="checkbox" name="atividades" value="organizar" data-pesos="GESTAO_NEGOCIOS:3"> Organizar eventos, finanças ou projetos</label>
+    <label><input type="checkbox" name="atividades" value="criar_conteudo" data-pesos="HUMANAS_SOCIAIS_ARTES:3"> Escrever, desenhar ou criar conteúdo</label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Na escola, qual matéria você mais curtia?</legend>
+    <label><input type="radio" name="materia" value="matematica" required data-pesos="EXATAS_EXCETO_TI:2, TI:1"> Matemática</label>
+    <label><input type="radio" name="materia" value="fisica_quimica" data-pesos="EXATAS_EXCETO_TI:3"> Física ou Química</label>
+    <label><input type="radio" name="materia" value="biologia" data-pesos="NATUREZA_SAUDE:3"> Biologia</label>
+    <label><input type="radio" name="materia" value="humanas" data-pesos="HUMANAS_SOCIAIS_ARTES:3"> História, Geografia ou Sociologia</label>
+    <label><input type="radio" name="materia" value="linguagens" data-pesos="HUMANAS_SOCIAIS_ARTES:2, GESTAO_NEGOCIOS:1"> Português, Literatura ou Artes</label>
+    <label><input type="radio" name="materia" value="informatica" data-pesos="TI:3"> Informática</label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Quanto você gosta de usar e explorar tecnologia no dia a dia?</legend>
+    <input type="range" name="gosto_tecnologia" min="1" max="5" step="1" value="3"
+           data-rotulo-min="Pouco" data-rotulo-max="Muito" data-pesos="TI:4">
+  </fieldset>
+
+  <fieldset>
+    <legend>Em um trabalho em grupo, você costuma…</legend>
+    <label><input type="radio" name="grupo" value="liderar" required data-pesos="GESTAO_NEGOCIOS:3"> Liderar e dividir as tarefas</label>
+    <label><input type="radio" name="grupo" value="pesquisar" data-pesos="EXATAS_EXCETO_TI:1, TI:1, HUMANAS_SOCIAIS_ARTES:1"> Pesquisar e analisar as informações</label>
+    <label><input type="radio" name="grupo" value="construir" data-pesos="TI:2, EXATAS_EXCETO_TI:2"> Pôr a mão na massa na parte prática</label>
+    <label><input type="radio" name="grupo" value="cuidar" data-pesos="NATUREZA_SAUDE:2, HUMANAS_SOCIAIS_ARTES:1"> Cuidar para que todos estejam bem</label>
+    <label><input type="radio" name="grupo" value="apresentar" data-pesos="HUMANAS_SOCIAIS_ARTES:2, GESTAO_NEGOCIOS:1"> Apresentar e explicar as ideias</label>
+  </fieldset>
+
+  <fieldset>
+    <legend>E resolver problemas de matemática, você gosta?</legend>
+    <input type="range" name="gosto_matematica" min="1" max="5" step="1" value="3"
+           data-rotulo-min="Nem um pouco" data-rotulo-max="Adoro" data-pesos="EXATAS_EXCETO_TI:3, TI:2">
+  </fieldset>
+
+  <fieldset>
+    <legend>Onde você se imagina trabalhando?</legend>
+    <label><input type="radio" name="ambiente" value="escritorio" required data-pesos="GESTAO_NEGOCIOS:3"> Em um escritório ou empresa</label>
+    <label><input type="radio" name="ambiente" value="laboratorio" data-pesos="NATUREZA_SAUDE:3"> Em um laboratório, clínica ou hospital</label>
+    <label><input type="radio" name="ambiente" value="remoto" data-pesos="TI:3"> De qualquer lugar, com um computador</label>
+    <label><input type="radio" name="ambiente" value="industria" data-pesos="EXATAS_EXCETO_TI:3"> Em obras, indústria ou campo</label>
+    <label><input type="radio" name="ambiente" value="escola" data-pesos="HUMANAS_SOCIAIS_ARTES:3"> Em escolas, ONGs ou espaços culturais</label>
+  </fieldset>
+
+  <fieldset>
+    <legend>O que mais te motiva em uma profissão?</legend>
+    <label><input type="radio" name="motivacao" value="criar" required data-pesos="TI:2, EXATAS_EXCETO_TI:1"> Criar soluções novas</label>
+    <label><input type="radio" name="motivacao" value="ajudar" data-pesos="NATUREZA_SAUDE:2, HUMANAS_SOCIAIS_ARTES:1"> Ajudar pessoas diretamente</label>
+    <label><input type="radio" name="motivacao" value="crescer" data-pesos="GESTAO_NEGOCIOS:2, TI:1"> Crescer e ter estabilidade financeira</label>
+    <label><input type="radio" name="motivacao" value="expressar" data-pesos="HUMANAS_SOCIAIS_ARTES:3"> Expressar ideias e criatividade</label>
+    <label><input type="radio" name="motivacao" value="entender" data-pesos="EXATAS_EXCETO_TI:2, NATUREZA_SAUDE:1"> Entender como as coisas funcionam</label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Quer contar mais alguma coisa sobre o que você gosta de fazer?</legend>
+    <p class="ajuda">Opcional. Não escreva dados pessoais como nome, telefone ou endereço.</p>
+    <label>Sua resposta
+      <textarea name="comentario" rows="4" maxlength="280"></textarea>
+    </label>
+  </fieldset>
+
+</form>

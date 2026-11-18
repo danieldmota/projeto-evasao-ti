@@ -50,11 +50,11 @@ As duas páginas compartilham o tema em `web/assets/tema.css`. A linguagem visua
 
 Elas servem de referência visual e de contrato. Quando o site definitivo existir, os gráficos podem ser portados para o framework escolhido, mantendo as mesmas chamadas e regras de apresentação.
 
-## 2. Formulário vocacional (quando o HTML chegar)
+## 2. Jornada guiada e formulário vocacional
 
-**Ainda não foi implementado** (de propósito): perguntas, pesos e algoritmo dependem do questionário real. O que existe são contratos em [`vocational/contracts.py`](../src/evasao_ti/vocational/contracts.py), sem rotas publicadas.
+A jornada completa das 8 etapas está em [`web/index.html`](../web/index.html) e funciona com um formulário **fictício**. O passo a passo para encaixar o HTML oficial está em [INTEGRACAO_FORMULARIO.md](INTEGRACAO_FORMULARIO.md). No servidor, as rotas abaixo ainda **não existem**: a jornada roda em modo demonstração até que sejam implementadas e configuradas em `JORNADA_CONFIG`.
 
-Fluxo planejado (etapas 2 a 5 do site):
+Rotas planejadas (etapas 2 a 5 do site):
 
 | Passo | Rota planejada | Contrato | Dados pessoais? |
 |---|---|---|---|

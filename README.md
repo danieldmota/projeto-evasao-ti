@@ -9,6 +9,16 @@ Documentação:
 - [docs/METODOLOGIA.md](docs/METODOLOGIA.md): definições, fórmulas, classificação, limitações e fontes
 - [docs/ARQUITETURA.md](docs/ARQUITETURA.md): estrutura e decisões técnicas
 - [docs/INTEGRACAO_FRONTEND.md](docs/INTEGRACAO_FRONTEND.md): consumo da API, contratos do formulário vocacional e LGPD
+- [docs/INTEGRACAO_FORMULARIO.md](docs/INTEGRACAO_FORMULARIO.md): jornada guiada de 8 etapas e como encaixar o formulário oficial
+
+## Site (pasta `web/`)
+```bash
+evasao-ti serve                                            # API em 127.0.0.1:8000
+python -m http.server 5173 --bind 127.0.0.1 --directory web
+```
+- `http://localhost:5173/`: **jornada guiada** (formulário → resultado → interesse → convite → dados → competências → estudos), com formulário fictício até chegar o oficial
+- `/estatisticas.html`: painel de trancamento com filtros
+- `/trilha-ti.html`: competências e trilha de estudos
 
 ## Requisitos
 - Python **3.12+**
@@ -72,7 +82,9 @@ O servidor `download.inep.gov.br` envia a cadeia de certificados incompleta. Por
 ## Testes e qualidade
 ```bash
 pytest                    # unitários + integração (fixtures sintéticas) + dados reais, se presentes
-pytest -m "not real_data" # só fixtures sintéticas
+pytest -m "not real_data and not e2e"  # só fixtures sintéticas
+pip install -e ".[e2e]" && pytest -m e2e  # jornada completa em Chrome real (celular e desktop)
+node --test tests/js/jornada-core.test.js # lógica da jornada (também roda dentro do pytest)
 ruff check src tests && ruff format --check src tests
 ```
 As fixtures em `tests/synthetic.py` são **fictícias** e servem só para testar o código. Os testes `real_data` usam os ZIPs em `data/raw/` e são pulados se eles não existirem.

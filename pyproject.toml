@@ -28,6 +28,9 @@ dev = [
     "pytest-cov>=5.0",
     "ruff>=0.6",
 ]
+e2e = [
+    "playwright>=1.47",  # usa o Google Chrome instalado (channel="chrome")
+]
 
 [project.scripts]
 evasao-ti = "evasao_ti.cli:app"
@@ -37,9 +40,10 @@ packages = ["src/evasao_ti"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-ra --strict-markers"
+addopts = "-ra --strict-markers -m 'not e2e'"
 markers = [
     "real_data: testes que exigem os ZIPs reais do INEP em data/raw (pulados se ausentes)",
+    "e2e: jornada em navegador real (Playwright + Chrome); rode com: pytest -m e2e",
 ]
 
 [tool.ruff]
