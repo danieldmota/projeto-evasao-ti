@@ -4,101 +4,170 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Competências e Estudos em TI</title>
+<script src="assets/tema.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&display=swap">
 <link rel="stylesheet" href="assets/tema.css">
 <style>
-  section + section { margin-top: 40px; }
-  .section-head { margin-bottom: 16px; }
-  .section-head h2 { font-size: 1.375rem; margin-bottom: 8px; }
-  .section-head p { color: var(--text-secondary); margin: 0; max-width: 70ch; }
+  .intro { max-width: 50rem; margin-bottom: var(--space-xl); }
+  .intro h1 { font-size: var(--step-3); font-weight: 500; margin-top: var(--space-s); }
+  .intro h1 em { font-style: italic; color: var(--accent); }
 
-  /* Seção 7: competências */
-  .comp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
-  .comp { display: flex; flex-direction: column; margin: 0; }
-  .comp .num {
-    width: 32px; height: 32px; border-radius: 50%; flex: none;
-    display: grid; place-items: center; font-weight: 600; font-size: .9375rem;
-    background: var(--accent); color: #fff;
-  }
-  .comp header { display: flex; gap: 12px; align-items: center; margin-bottom: 8px; }
-  .comp h3 { font-size: 1.0625rem; margin: 0; line-height: 1.3; }
-  .comp .resumo { margin: 0 0 12px; }
-  .comp h4 { font-size: .8125rem; text-transform: uppercase; letter-spacing: .04em; color: var(--text-muted); margin: 12px 0 4px; }
-  .comp p, .comp li { font-size: .9375rem; }
-  .comp p.why { color: var(--text-secondary); margin: 0; }
-  .comp ul { margin: 0; padding-left: 20px; color: var(--text-secondary); }
-  .comp li + li { margin-top: 4px; }
-  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 12px; }
-  .chip {
-    font-size: .8125rem; text-decoration: none; color: var(--text-primary);
-    border: 1px solid var(--border); border-radius: 999px; padding: 3px 10px;
-    background: var(--surface-0);
-  }
-  .chip:hover { border-color: var(--accent); }
+  .section-head { display: grid; gap: var(--space-s); margin-bottom: var(--space-l); max-width: 46rem; }
+  .section-head h2 { font-size: var(--step-2); }
+  .section-head p { margin: 0; color: var(--ink-2); }
+  section.block + section.block { margin-top: var(--space-xl); }
 
-  /* Seção 8: etapas */
-  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
-  .step { margin: 0; }
-  .step .when { font-size: .8125rem; color: var(--text-muted); margin: 2px 0 8px; }
-  .step h3 { font-size: 1.0625rem; margin: 0; }
-  .step ul.obj { margin: 0 0 12px; padding-left: 20px; color: var(--text-secondary); font-size: .9375rem; }
-  .res-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
-  .res {
+  /* ---- Seção 7: competências com numeral na margem ---- */
+  .comp-list { list-style: none; margin: 0; padding: 0; counter-reset: comp; }
+  .comp {
+    display: grid; grid-template-columns: 3.25rem minmax(0, 1fr); gap: 0 var(--space-m);
+    padding: var(--space-l) 0; border-top: 1px solid var(--rule);
+  }
+  .comp:last-child { border-bottom: 1px solid var(--rule); }
+  .comp .numeral {
+    font-family: var(--font-display); font-style: italic; font-weight: 400;
+    font-size: clamp(2.5rem, 2rem + 2vw, 3.75rem); line-height: .9; color: var(--accent);
+    font-variant-numeric: lining-nums;
+  }
+  .comp h3 { font-size: var(--step-2); font-weight: 600; }
+  .comp .resumo { font-size: var(--step-1); color: var(--ink); margin: var(--space-xs) 0 var(--space-m); max-width: 40rem; line-height: 1.45; }
+  .comp .cols { display: grid; gap: var(--space-m) var(--space-l); }
+  @media (min-width: 760px) {
+    .comp { grid-template-columns: 5.5rem minmax(0, 1fr); }
+    .comp .cols { grid-template-columns: minmax(0, 4fr) minmax(0, 5fr); }
+  }
+  .comp .cols .kicker { display: block; margin-bottom: 6px; }
+  .comp .cols p { margin: 0; color: var(--ink-2); }
+  .comp .cols ul { margin: 0; padding-left: 1.1rem; color: var(--ink-2); }
+  .comp .cols li + li { margin-top: 6px; }
+  .comp .cols li::marker { color: var(--accent); }
+  .practice { margin: var(--space-m) 0 0; font-size: var(--step--1); color: var(--ink-3); }
+  .practice a { font-weight: 700; }
+  .practice .sep { margin: 0 .45em; color: var(--rule); }
+
+  /* ---- Seção 8: trilha em linha do tempo ---- */
+  .timeline { list-style: none; margin: 0; padding: 0; position: relative; }
+  .timeline::before {
+    content: ""; position: absolute; left: 15px; top: 8px; bottom: 8px;
+    width: 2px; background: var(--rule);
+  }
+  .step { position: relative; padding: 0 0 var(--space-l) 3.25rem; }
+  .step:last-child { padding-bottom: 0; }
+  .step .dot {
+    position: absolute; left: 0; top: 0; width: 32px; height: 32px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--paper); border: 2px solid var(--accent); color: var(--ink);
+    font-family: var(--font-display); font-weight: 600; font-size: 1rem;
+  }
+  .step h3 { font-size: var(--step-1); font-weight: 600; padding-top: 3px; }
+  .step .when { margin: 2px 0 var(--space-s); }
+  .step .obj { margin: 0 0 var(--space-s); padding-left: 1.1rem; color: var(--ink-2); max-width: 44rem; }
+  .step .obj li + li { margin-top: 4px; }
+  .res { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px var(--space-l); }
+  @media (min-width: 760px) { .res { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .res a {
     display: block; text-decoration: none; color: inherit;
-    border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px;
-    background: var(--surface-0);
+    padding: 10px 0; border-bottom: 1px dashed var(--rule);
   }
-  .res:hover { border-color: var(--accent); }
-  .res .name { font-weight: 600; font-size: .9375rem; color: var(--accent); }
-  .res .desc { font-size: .875rem; color: var(--text-secondary); margin: 2px 0 6px; }
-  .res .meta { font-size: .75rem; color: var(--text-muted); }
+  .res a:hover .name { text-decoration: underline; text-decoration-thickness: 2px; }
+  .res .name { color: var(--link); font-weight: 700; text-underline-offset: .18em; }
+  .res .name::after { content: " ↗"; font-weight: 400; }
+  .res .desc { display: block; color: var(--ink-2); font-size: var(--step--1); margin-top: 2px; }
+  .res .meta { display: block; color: var(--ink-3); font-size: var(--step--2); margin-top: 2px; }
 
-  .two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 16px; }
-  .two-col h3 { font-size: 1.0625rem; margin: 0 0 8px; }
-  .two-col ul { margin: 0; padding-left: 20px; color: var(--text-secondary); font-size: .9375rem; }
-  .two-col li + li { margin-top: 6px; }
-  .card.highlight { border-left: 4px solid var(--accent); }
-  .disclaimer { font-size: .8125rem; color: var(--text-muted); margin-top: 32px; }
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  /* ---- hábitos ---- */
+  .habits { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-m) var(--space-l); counter-reset: hab; }
+  @media (min-width: 760px) { .habits { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .habits li { counter-increment: hab; display: grid; grid-template-columns: 2rem 1fr; gap: 0 var(--space-xs); color: var(--ink); }
+  .habits li::before {
+    content: counter(hab, lower-alpha) ")";
+    font-family: var(--font-display); font-style: italic; color: var(--ink-3); font-size: var(--step-1); line-height: 1.3;
+  }
+
+  /* ---- faixa "Pensando em trancar?" ---- */
+  .band {
+    margin: var(--space-xl) calc(-1 * clamp(16px, 4vw, 40px)) 0;
+    padding: var(--space-l) clamp(16px, 4vw, 40px);
+    background: var(--warm-bg);
+    border-radius: 4px;
+  }
+  .band-inner { display: grid; gap: var(--space-m) var(--space-l); }
+  @media (min-width: 880px) { .band-inner { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); } }
+  .band h2 { font-size: var(--step-2); }
+  .band .kicker { color: var(--warm-ink); }
+  .band p { margin: var(--space-xs) 0 0; color: var(--ink); }
+  .band ul { margin: 0; padding-left: 1.1rem; }
+  .band li { color: var(--ink); }
+  .band li + li { margin-top: 8px; }
+  .band li::marker { color: var(--warm-ink); }
+
+  .disclaimer { max-width: 60rem; }
 </style>
 </head>
 <body>
-<main>
-  <nav class="site-nav" aria-label="Seções">
-    <a href="estatisticas.html">Dados de trancamento</a>
-    <a href="trilha-ti.html" aria-current="page">Competências e por onde começar</a>
-  </nav>
-
-  <div id="error" class="error" hidden></div>
-
-  <section aria-labelledby="h-comp">
-    <div class="section-head">
-      <h2 id="h-comp"></h2>
-      <p id="comp-intro"></p>
+<div class="page">
+  <header class="masthead">
+    <a class="brand" href="estatisticas.html">Permanência <span>em TI</span></a>
+    <nav class="site-nav" aria-label="Seções">
+      <a href="estatisticas.html">Dados de trancamento</a>
+      <a href="trilha-ti.html" aria-current="page">Competências e por onde começar</a>
+    </nav>
+    <div class="segmented theme-switch" role="group" aria-label="Tema da página">
+      <button type="button" data-theme-set="auto" aria-pressed="true" title="Seguir o sistema">Auto</button>
+      <button type="button" data-theme-set="light" aria-pressed="false">Claro</button>
+      <button type="button" data-theme-set="dark" aria-pressed="false">Escuro</button>
     </div>
-    <div class="comp-grid" id="comp-grid"></div>
-  </section>
+  </header>
 
-  <section aria-labelledby="h-rec">
-    <div class="section-head">
-      <h2 id="h-rec"></h2>
-      <p id="rec-intro"></p>
-    </div>
-    <ol class="steps" id="steps"></ol>
-    <div class="two-col">
-      <div class="card">
-        <h3 id="h-habitos"></h3>
-        <ul id="habitos"></ul>
-      </div>
-      <div class="card highlight">
-        <h3 id="h-trancar"></h3>
-        <p class="sub" id="trancar-texto" style="margin-bottom:8px"></p>
+  <main>
+    <div id="error" class="error" hidden></div>
+
+    <section class="intro rise">
+      <p class="kicker">Para quem está começando</p>
+      <h1>O que você vai desenvolver em TI, e <em>por onde começar</em>.</h1>
+    </section>
+
+    <section class="block" aria-labelledby="h-comp">
+      <header class="section-head rise" style="--i:1">
+        <span class="kicker">Parte 1 · Competências</span>
+        <h2 id="h-comp"></h2>
+        <p id="comp-intro"></p>
+      </header>
+      <ol class="comp-list" id="comp-list"></ol>
+    </section>
+
+    <section class="block" aria-labelledby="h-rec">
+      <header class="section-head">
+        <span class="kicker">Parte 2 · Trilha de estudos</span>
+        <h2 id="h-rec"></h2>
+        <p id="rec-intro"></p>
+      </header>
+      <ol class="timeline" id="steps"></ol>
+    </section>
+
+    <section class="block" aria-labelledby="h-habitos">
+      <header class="section-head">
+        <h2 id="h-habitos"></h2>
+      </header>
+      <ul class="habits" id="habitos"></ul>
+    </section>
+
+    <aside class="band" aria-labelledby="h-trancar">
+      <div class="band-inner">
+        <div>
+          <span class="kicker">Antes de decidir</span>
+          <h2 id="h-trancar"></h2>
+          <p id="trancar-texto"></p>
+        </div>
         <ul id="trancar"></ul>
       </div>
-    </div>
-  </section>
+    </aside>
+  </main>
 
-  <p class="disclaimer" id="disclaimer"></p>
-</main>
+  <footer class="site-foot disclaimer" id="disclaimer"></footer>
+</div>
 
 <script>
 (() => {
@@ -107,16 +176,7 @@
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const safeUrl = u => /^https:\/\//.test(u) ? u : "#";
   const list = items => items.map(t => `<li>${esc(t)}</li>`).join("");
-
-  function chip(res) {
-    return `<a class="chip" href="${esc(safeUrl(res.url))}" target="_blank" rel="noopener noreferrer">${esc(res.nome)}<span class="visually-hidden"> (abre em nova aba)</span></a>`;
-  }
-  function resCard(res) {
-    return `<a class="res" href="${esc(safeUrl(res.url))}" target="_blank" rel="noopener noreferrer">
-      <div class="name">${esc(res.nome)} ↗</div>
-      <div class="desc">${esc(res.descricao)}</div>
-      <div class="meta">${esc(res.idioma)} · ${esc(res.custo)}</div></a>`;
-  }
+  const ext = '<span class="visually-hidden"> (abre em nova aba)</span>';
 
   function render(c) {
     const R = c.recursos;
@@ -124,27 +184,37 @@
 
     $("h-comp").textContent = c.competencias.titulo;
     $("comp-intro").textContent = c.competencias.introducao;
-    $("comp-grid").innerHTML = c.competencias.itens.map((it, i) => `
-      <article class="card comp" aria-labelledby="comp-${esc(it.id)}">
-        <header><span class="num" aria-hidden="true">${i + 1}</span>
-          <h3 id="comp-${esc(it.id)}">${esc(it.titulo)}</h3></header>
-        <p class="resumo">${esc(it.resumo)}</p>
-        <h4>Por que importa</h4>
-        <p class="why">${esc(it.por_que_importa)}</p>
-        <h4>Como desenvolver</h4>
-        <ul>${list(it.como_desenvolver)}</ul>
-        <div class="chips" aria-label="Materiais sugeridos">${pick(it.recursos).map(chip).join("")}</div>
-      </article>`).join("");
+    $("comp-list").innerHTML = c.competencias.itens.map((it, i) => `
+      <li class="comp rise" style="--i:${i + 2}">
+        <span class="numeral" aria-hidden="true">${i + 1}</span>
+        <div>
+          <h3>${esc(it.titulo)}</h3>
+          <p class="resumo">${esc(it.resumo)}</p>
+          <div class="cols">
+            <div><span class="kicker">Por que importa</span><p>${esc(it.por_que_importa)}</p></div>
+            <div><span class="kicker">Como desenvolver</span><ul>${list(it.como_desenvolver)}</ul></div>
+          </div>
+          <p class="practice">Para praticar: ${pick(it.recursos).map(r =>
+            `<a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener noreferrer">${esc(r.nome)}${ext}</a>`
+          ).join('<span class="sep" aria-hidden="true">/</span>')}</p>
+        </div>
+      </li>`).join("");
 
     const rec = c.recomendacoes;
     $("h-rec").textContent = rec.titulo;
     $("rec-intro").textContent = rec.introducao;
-    $("steps").innerHTML = rec.etapas.map(e => `
-      <li class="card step">
-        <h3>${esc(e.titulo)}</h3>
-        <p class="when">${esc(e.quando)}</p>
+    $("steps").innerHTML = rec.etapas.map((e, i) => `
+      <li class="step">
+        <span class="dot" aria-hidden="true">${i + 1}</span>
+        <h3>${esc(e.titulo.replace(/^\d+\.\s*/, ""))}</h3>
+        <p class="when kicker">${esc(e.quando)}</p>
         <ul class="obj">${list(e.objetivos)}</ul>
-        <div class="res-list">${pick(e.recursos).map(resCard).join("")}</div>
+        <ul class="res">${pick(e.recursos).map(r => `
+          <li><a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener noreferrer">
+            <span class="name">${esc(r.nome)}</span>${ext}
+            <span class="desc">${esc(r.descricao)}</span>
+            <span class="meta">${esc(r.idioma)} · ${esc(r.custo)}</span>
+          </a></li>`).join("")}</ul>
       </li>`).join("");
 
     $("h-habitos").textContent = rec.habitos.titulo;
@@ -154,7 +224,7 @@
     $("trancar").innerHTML = list(rec.antes_de_trancar.itens);
 
     $("disclaimer").textContent =
-      `${c.aviso} Versão ${c.versao}, revisada em ${c.revisado_em.split("-").reverse().join("/")}.`;
+      `${c.aviso} Versão ${c.versao} do conteúdo, revisada em ${c.revisado_em.split("-").reverse().join("/")}.`;
   }
 
   fetch("conteudo/trilha-ti.json")

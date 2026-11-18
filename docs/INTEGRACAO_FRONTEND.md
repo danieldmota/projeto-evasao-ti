@@ -46,7 +46,7 @@ Para outra API: `estatisticas.html?api=https://minha-api/api/v1`. A origem da p�
 ### Seções 7 e 8: `web/trilha-ti.html`
 Cinco competências de TI e recomendações de estudo para iniciantes. O texto fica em [`web/conteudo/trilha-ti.json`](../web/conteudo/trilha-ti.json), fonte única que o site definitivo também pode consumir. Para editar o conteúdo, altere só o JSON, incremente `versao` e atualize `revisado_em`. O teste `tests/test_conteudo.py` garante a estrutura: exatamente 5 competências, recursos referenciados existentes, links https e materiais gratuitos. Antes de cada publicação, confira se os links externos continuam no ar.
 
-As duas páginas compartilham o tema em `web/assets/tema.css` (tokens de cor claro/escuro e navegação).
+As duas páginas compartilham o tema em `web/assets/tema.css`. A linguagem visual é editorial ("papel e tinta"): títulos em *Newsreader* e texto em *Atkinson Hyperlegible*, fonte desenhada para legibilidade, carregadas do Google Fonts com fallback local. O seletor **Auto / Claro / Escuro** (`web/assets/tema.js`) segue o sistema por padrão e guarda a escolha no navegador. O script vai no `<head>` para aplicar o tema antes da primeira pintura. As cores dos gráficos são validadas contra os dois fundos. "Permanência em TI" é um nome provisório, que deve ser trocado pelo nome oficial do projeto.
 
 Elas servem de referência visual e de contrato. Quando o site definitivo existir, os gráficos podem ser portados para o framework escolhido, mantendo as mesmas chamadas e regras de apresentação.
 
