@@ -8,28 +8,23 @@ build/
 dist/
 .pytest_cache/
 .ruff_cache/
-.coverage
-htmlcov/
 
-# Configuração local (pode conter segredos)
+# Configuração local
 .env
 
-# Dados: nunca versionar microdados nem bases derivadas grandes
-data/raw/
-data/staging/
-data/warehouse/
-data/reports/
+# Dados: microdados e arquivos intermediários não vão para o Git (são regeráveis)
+dados/*
 *.zip
 *.part
 *.CSV
-*.csv.gz
 *.parquet
 *.duckdb
 *.duckdb.wal
+*.tmp
 
-# Exceção: fixtures sintéticas pequenas e a tabela de correspondência versionada
-!tests/fixtures/**
-!src/evasao_ti/classification/data/*.csv
+# Exceções: a base consolidada (usada no deploy da API) e a tabela de correspondência CINE
+!dados/evasao.duckdb
+!evasao/mapeamento_cine.csv
 
 # Editores / SO
 .vscode/*
@@ -38,5 +33,5 @@ data/reports/
 .DS_Store
 Thumbs.db
 
-# Notebook original do Colab (mantido apenas como referência local)
+# Notebook original do Colab
 .ipynb_checkpoints/

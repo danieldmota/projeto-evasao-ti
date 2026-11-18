@@ -5,67 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%231f1b16%22/%3E%3Ctext x=%2216%22 y=%2222%22 font-family=%22Georgia,serif%22 font-size=%2216%22 font-style=%22italic%22 fill=%22%23f7f5ef%22 text-anchor=%22middle%22%3ETI%3C/text%3E%3C/svg%3E">
 <title>Trancamento no Ensino Superior</title>
-<script src="assets/tema.js"></script>
+<script src="tema.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&display=swap">
-<link rel="stylesheet" href="assets/tema.css">
-<link rel="stylesheet" href="assets/graficos.css">
-<style>
-  /* ---- abertura: manchete escrita a partir dos dados ---- */
-  .intro { max-width: 52rem; margin-bottom: var(--space-l); }
-  .intro h1 { font-size: var(--step-3); font-weight: 500; margin-top: var(--space-s); }
-  .intro h1 .num {
-    font-weight: 700; font-style: normal; white-space: nowrap;
-    text-decoration: underline; text-decoration-color: var(--accent);
-    text-decoration-thickness: .09em; text-underline-offset: .12em;
-  }
-  .intro .lead strong { color: var(--ink); font-weight: 700; font-variant-numeric: tabular-nums; }
-
-  /* ---- barra de filtros: uma linha acima das figuras ---- */
-  .toolbar {
-    display: flex; flex-wrap: wrap; align-items: end; gap: var(--space-s) var(--space-l);
-    padding: var(--space-s) 0; margin-bottom: var(--space-m);
-    border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
-  }
-  .field { display: flex; flex-direction: column; gap: 4px; }
-  .field-label { font-size: var(--step--2); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
-  .range { display: flex; align-items: center; gap: 8px; color: var(--ink-3); font-size: var(--step--1); }
-  select {
-    font: inherit; font-size: var(--step--1); color: var(--ink);
-    background: var(--paper-2); border: 1px solid var(--rule); border-radius: 999px;
-    padding: .35rem 2rem .35rem .85rem; min-height: 38px; appearance: none;
-    background-image: linear-gradient(45deg, transparent 50%, var(--ink-2) 50%), linear-gradient(135deg, var(--ink-2) 50%, transparent 50%);
-    background-position: calc(100% - 15px) 52%, calc(100% - 10px) 52%;
-    background-size: 5px 5px; background-repeat: no-repeat;
-  }
-  #comparability { margin-bottom: var(--space-l); }
-  #comparability summary { color: var(--ink); font-size: var(--step--1); }
-  #comparability ul { margin: var(--space-xs) 0 0; padding-left: 1.2rem; color: var(--ink-2); }
-  #comparability li + li { margin-top: 4px; }
-
-  /* ---- figuras ---- */
-  .figure { margin: 0 0 var(--space-xl); }
-  .fig-head { margin-bottom: var(--space-s); max-width: var(--measure); }
-  .fig-head h2 { font-size: var(--step-2); margin: 4px 0 6px; }
-  .fig-head p { margin: 0; color: var(--ink-2); font-size: var(--step--1); }
-  .split { display: grid; gap: var(--space-m) var(--space-l); }
-  @media (min-width: 880px) {
-    .split { grid-template-columns: minmax(0, 5fr) minmax(0, 8fr); align-items: start; }
-    .split .fig-head { position: sticky; top: var(--space-m); }
-  }
-  .fig-head .takeaway { font-family: var(--font-display); font-size: var(--step-1); line-height: 1.4; color: var(--ink); margin: var(--space-s) 0 0; }
-  .figure details { margin-top: var(--space-s); }
-
-  /* ---- notas de leitura (estilo nota de rodapé) ---- */
-  .notes { border-top: 1px solid var(--rule); padding-top: var(--space-m); }
-  .notes h2 { font-size: var(--step-1); margin-bottom: var(--space-s); }
-  .notes ol { margin: 0; padding-left: 1.3rem; font-size: var(--step--1); color: var(--ink-2); }
-  .notes li { margin-bottom: var(--space-xs); break-inside: avoid; padding-left: 4px; }
-  .notes li::marker { color: var(--ink-3); font-weight: 700; }
-  .notes li strong { color: var(--ink); }
-  @media (min-width: 880px) { .notes ol { columns: 2; column-gap: var(--space-l); } }
-</style>
+<link rel="stylesheet" href="estilo.css">
 </head>
 <body>
 <div class="page">
@@ -74,7 +18,6 @@
     <nav class="site-nav" aria-label="Seções">
       <a href="index.html">Jornada</a>
       <a href="estatisticas.html" aria-current="page">Dados de trancamento</a>
-      <a href="trilha-ti.html">Competências e por onde começar</a>
     </nav>
     <div class="segmented theme-switch" role="group" aria-label="Tema da página">
       <button type="button" data-theme-set="auto" aria-pressed="true" title="Seguir o sistema">Auto</button>
@@ -84,33 +27,33 @@
   </header>
 
   <main>
-    <div id="error" class="error" hidden></div>
+    <div id="erro" class="error" hidden></div>
 
     <section class="intro rise" aria-live="polite">
-      <p class="kicker" id="kicker">Ensino superior · graduação · Censo INEP</p>
-      <h1 id="headline">Carregando os dados do Censo da Educação Superior…</h1>
-      <p class="lead" id="dek">&nbsp;</p>
+      <p class="kicker" id="chapeu">Ensino superior · graduação · Censo INEP</p>
+      <h1 id="manchete">Carregando os dados do Censo da Educação Superior…</h1>
+      <p class="lead" id="linha-fina">&nbsp;</p>
     </section>
 
     <div class="toolbar rise" style="--i:1" role="group" aria-label="Filtros dos gráficos">
       <div class="field">
-        <span class="field-label" id="lbl-periodo">Período</span>
-        <div class="range" aria-labelledby="lbl-periodo">
-          <select id="f-start" aria-label="Ano inicial"></select> a
-          <select id="f-end" aria-label="Ano final"></select>
+        <span class="field-label" id="rot-periodo">Período</span>
+        <div class="range" aria-labelledby="rot-periodo">
+          <select id="ano-ini" aria-label="Ano inicial"></select> a
+          <select id="ano-fim" aria-label="Ano final"></select>
         </div>
       </div>
       <div class="field">
-        <span class="field-label" id="lbl-mod">Modalidade</span>
-        <div class="segmented" data-filter="modalidade" role="group" aria-labelledby="lbl-mod">
+        <span class="field-label" id="rot-mod">Modalidade</span>
+        <div class="segmented" data-filtro="modalidade" role="group" aria-labelledby="rot-mod">
           <button type="button" value="" aria-pressed="true">Todas</button>
           <button type="button" value="presencial" aria-pressed="false">Presencial</button>
           <button type="button" value="ead" aria-pressed="false">EaD</button>
         </div>
       </div>
       <div class="field">
-        <span class="field-label" id="lbl-rede">Rede</span>
-        <div class="segmented" data-filter="rede" role="group" aria-labelledby="lbl-rede">
+        <span class="field-label" id="rot-rede">Rede</span>
+        <div class="segmented" data-filtro="rede" role="group" aria-labelledby="rot-rede">
           <button type="button" value="" aria-pressed="true">Todas</button>
           <button type="button" value="publica" aria-pressed="false">Pública</button>
           <button type="button" value="privada" aria-pressed="false">Privada</button>
@@ -118,197 +61,175 @@
       </div>
     </div>
 
-    <div id="comparability" class="note" hidden></div>
+    <div id="comparabilidade" class="note" hidden></div>
 
-    <figure class="figure rise" style="--i:2" aria-labelledby="fig1-title">
+    <figure class="figure rise" style="--i:2" aria-labelledby="fig1-titulo">
       <figcaption class="fig-head">
         <span class="kicker">Figura 1</span>
-        <h2 id="fig1-title">Taxa de trancamento por área, ano a ano</h2>
+        <h2 id="fig1-titulo">Taxa de trancamento por área, ano a ano</h2>
         <p>Matrículas trancadas ÷ (matrículas cursando ou formadas + trancadas). Passe o mouse ou toque no gráfico para ver cada ano.</p>
       </figcaption>
-      <ul class="legend" id="legend-annual"></ul>
-      <div class="chart" id="chart-annual"></div>
+      <ul class="legend" id="legenda"></ul>
+      <div class="chart" id="graf-anual"></div>
       <p class="source">Fonte: INEP, microdados do Censo da Educação Superior. Cálculo próprio; não é estatística oficial.</p>
       <details>
         <summary>Ver os dados em tabela</summary>
-        <div class="table-wrap" id="table-annual"></div>
+        <div class="table-wrap" id="tab-anual"></div>
       </details>
     </figure>
 
-    <figure class="figure split rise" style="--i:3" aria-labelledby="fig2-title">
+    <figure class="figure split rise" style="--i:3" aria-labelledby="fig2-titulo">
       <figcaption class="fig-head">
         <span class="kicker">Figura 2</span>
-        <h2 id="fig2-title">Consolidado do período</h2>
-        <p id="summary-sub">Soma de todos os anos selecionados (vínculos-ano, não pessoas).</p>
-        <p class="takeaway" id="takeaway"></p>
+        <h2 id="fig2-titulo">Consolidado do período</h2>
+        <p id="resumo-sub">Soma de todos os anos selecionados (vínculos-ano, não pessoas).</p>
+        <p class="takeaway" id="conclusao"></p>
       </figcaption>
       <div>
-        <div class="chart" id="chart-summary"></div>
+        <div class="chart" id="graf-resumo"></div>
         <details>
           <summary>Ver os dados em tabela</summary>
-          <div class="table-wrap" id="table-summary"></div>
+          <div class="table-wrap" id="tab-resumo"></div>
         </details>
       </div>
     </figure>
 
-    <section class="notes" aria-labelledby="h-notes">
-      <h2 id="h-notes">Como ler estes números</h2>
-      <ol id="notes-list"></ol>
+    <section class="notes" aria-labelledby="notas-titulo">
+      <h2 id="notas-titulo">Como ler estes números</h2>
+      <ol id="notas"></ol>
     </section>
   </main>
 
-  <footer class="site-foot" id="source"></footer>
+  <footer class="site-foot" id="fonte"></footer>
 </div>
 
 <script type="module">
-import {
-  LABEL, pct, compact, nf, esc, legendHTML,
-  renderLines, renderBars, annualTable, summaryTable, apiClient,
-} from "./assets/graficos.js";
+import { NOME_AREA, pct, compacto, nf, esc, legendaHTML, graficoLinhas, graficoBarras, tabelaAnual, tabelaResumo, criarApi } from "./graficos.js";
 
-const params = new URLSearchParams(location.search);
-const API = (params.get("api") || "http://127.0.0.1:8000/api/v1").replace(/\/$/, "");
-const api = apiClient(API);
-const SCOPE = {
-  modalidade: { "": "", presencial: "cursos presenciais", ead: "cursos a distância" },
-  rede: { "": "", publica: "rede pública", privada: "rede privada" },
-};
+const API = (new URLSearchParams(location.search).get("api") || "/api/v1").replace(/\/$/, "");
+const api = criarApi(API);
 const $ = id => document.getElementById(id);
+const RECORTE = {
+  modalidade: { presencial: "cursos presenciais", ead: "cursos a distância" },
+  rede: { publica: "rede pública", privada: "rede privada" },
+};
+const filtros = { modalidade: "", rede: "" };
+let anosInfo = [];
+let dados = null;
 
-function showError(err) {
-  const box = $("error");
-  box.hidden = false;
-  $("headline").textContent = "Os dados não carregaram.";
-  $("dek").textContent = "";
-  box.innerHTML = `<strong>Não foi possível falar com a API.</strong> ${esc(err.message)}<br>
-    Rode <code>evasao-ti serve</code> e recarregue a página (endereço esperado:
-    <code>${esc(API)}</code>). Para outro endereço, use <code>?api=URL</code>.`;
+function mostrarErro(e) {
+  $("erro").hidden = false;
+  $("manchete").textContent = "Os dados não carregaram.";
+  $("linha-fina").textContent = "";
+  $("erro").innerHTML = `<strong>Não foi possível falar com a API.</strong> ${esc(e.message)}<br>
+    Rode <code>python -m evasao api</code> e recarregue a página (endereço usado: <code>${esc(API)}</code>).
+    Para outro endereço, use <code>?api=URL</code>.`;
 }
 
-const fstate = { modalidade: "", rede: "" };
-let state = { yearInfo: [], annual: null, summary: null, total: null };
-const filters = () => ({ year_start: $("f-start").value, year_end: $("f-end").value, ...fstate });
-
-async function load() {
-  const f = filters();
-  if (+f.year_start > +f.year_end) { $("f-end").value = f.year_start; f.year_end = f.year_start; }
+async function carregar() {
+  if (+$("ano-ini").value > +$("ano-fim").value) $("ano-fim").value = $("ano-ini").value;
+  const f = { year_start: $("ano-ini").value, year_end: $("ano-fim").value, ...filtros };
   try {
-    const [annual, summary, total] = await Promise.all([
+    const [anual, resumo, total] = await Promise.all([
       api("/statistics/annual", { ...f, group_by: "segmento" }),
       api("/statistics/summary", { ...f, group_by: "segmento" }),
       api("/statistics/annual", { ...f, group_by: "total" }),
     ]);
-    $("error").hidden = true;
-    state = { ...state, annual, summary, total };
-    render();
-  } catch (err) { showError(err); }
+    $("erro").hidden = true;
+    dados = { anual, resumo, total };
+    desenhar();
+  } catch (e) { mostrarErro(e); }
 }
 
-function writeHeadline(years) {
-  const { annual, total } = state;
-  const first = years[0], last = years[years.length - 1];
-  const tiLast = annual.data.find(r => r.ano === last && r.grupo_codigo === "TI");
-  const tiFirst = annual.data.find(r => r.ano === first && r.grupo_codigo === "TI");
-  const all = total.data.find(r => r.ano === last)?.taxa_trancamento;
-  const ti = tiLast?.taxa_trancamento;
-  const scope = [SCOPE.modalidade[fstate.modalidade], SCOPE.rede[fstate.rede]].filter(Boolean).join(", ");
-
-  $("kicker").textContent = `Ensino superior · graduação${scope ? " · " + scope : ""} · Censo INEP`;
+// manchete escrita a partir dos números do recorte escolhido
+function escreverManchete(anos) {
+  const { anual, total } = dados;
+  const primeiro = anos[0], ultimo = anos[anos.length - 1];
+  const tiFim = anual.data.find(r => r.ano === ultimo && r.grupo_codigo === "TI");
+  const tiIni = anual.data.find(r => r.ano === primeiro && r.grupo_codigo === "TI");
+  const media = total.data.find(r => r.ano === ultimo)?.taxa_trancamento;
+  const ti = tiFim?.taxa_trancamento;
+  const recorte = [RECORTE.modalidade[filtros.modalidade], RECORTE.rede[filtros.rede]].filter(Boolean).join(", ");
+  $("chapeu").textContent = `Ensino superior · graduação${recorte ? " · " + recorte : ""} · Censo INEP`;
   if (ti == null) {
-    $("headline").textContent = `Sem dados de TI para ${last} neste recorte.`;
-    $("dek").textContent = "";
+    $("manchete").textContent = `Sem dados de TI para ${ultimo} neste recorte.`;
+    $("linha-fina").textContent = "";
     return;
   }
   let comp = "";
-  if (all != null) {
-    if (Math.abs(ti - all) < 0.005) comp = ", praticamente igual à média de todas as áreas";
-    else comp = `, ${ti > all ? "acima" : "abaixo"} da média de todas as áreas (${pct(all)})`;
+  if (media != null) {
+    comp = Math.abs(ti - media) < 0.005 ? ", praticamente igual à média de todas as áreas"
+      : `, ${ti > media ? "acima" : "abaixo"} da média de todas as áreas (${pct(media)})`;
   }
-  $("headline").innerHTML =
-    `Em ${last}, <em class="num">${pct(ti)}</em> dos vínculos em cursos de TI estavam trancados${comp}.`;
-  const vinc = (tiLast.matriculas ?? 0) + (tiLast.trancadas ?? 0);
-  let dek = `São <strong>${compact(tiLast.trancadas)}</strong> matrículas trancadas em
-    <strong>${nf.format(vinc)}</strong> vínculos de TI.`;
-  if (tiFirst?.taxa_trancamento != null && first !== last) {
-    dek += ` Em ${first}, a taxa era de <strong>${pct(tiFirst.taxa_trancamento)}</strong>.`;
-  }
-  $("dek").innerHTML = dek + " Trancar não é o mesmo que evadir, mas é um sinal de alerta.";
+  $("manchete").innerHTML = `Em ${ultimo}, <em class="num">${pct(ti)}</em> dos vínculos em cursos de TI estavam trancados${comp}.`;
+  let texto = `São <strong>${compacto(tiFim.trancadas)}</strong> matrículas trancadas em
+    <strong>${nf.format((tiFim.matriculas ?? 0) + (tiFim.trancadas ?? 0))}</strong> vínculos de TI.`;
+  if (tiIni?.taxa_trancamento != null && primeiro !== ultimo) texto += ` Em ${primeiro}, a taxa era de <strong>${pct(tiIni.taxa_trancamento)}</strong>.`;
+  $("linha-fina").innerHTML = texto + " Trancar não é o mesmo que evadir: no Censo do INEP são situações de vínculo diferentes.";
 }
 
-function render() {
-  const { annual, summary } = state;
-  const years = annual.meta.periodo.anos_com_dados;
-  if (!years.length) { $("headline").textContent = "Sem dados no período selecionado."; return; }
-  const first = years[0], last = years[years.length - 1];
+function desenhar() {
+  const { anual, resumo } = dados;
+  const anos = anual.meta.periodo.anos_com_dados;
+  if (!anos.length) { $("manchete").textContent = "Sem dados no período selecionado."; return; }
+  escreverManchete(anos);
+  graficoLinhas($("graf-anual"), anual.data, anos);
+  $("tab-anual").innerHTML = tabelaAnual(anual.data, anos);
+  graficoBarras($("graf-resumo"), resumo.data);
+  $("tab-resumo").innerHTML = tabelaResumo(resumo.data);
+  $("resumo-sub").textContent = `Soma de ${anos[0]} a ${anos[anos.length - 1]}: vínculos-ano, não pessoas. TI = cursos da área CINE 06.`;
 
-  writeHeadline(years);
-  renderLines($("chart-annual"), annual.data, years);
-  $("table-annual").innerHTML = annualTable(annual.data, years);
-  renderBars($("chart-summary"), summary.data);
-  $("table-summary").innerHTML = summaryTable(summary.data);
-  $("summary-sub").textContent =
-    `Soma de ${first} a ${last}: vínculos-ano, não pessoas. TI = cursos da área CINE 06.`;
-
-  const ranked = summary.data.filter(r => LABEL[r.grupo_codigo] && r.taxa_trancamento != null)
+  const ordem = resumo.data.filter(r => NOME_AREA[r.grupo_codigo] && r.taxa_trancamento != null)
     .sort((a, b) => b.taxa_trancamento - a.taxa_trancamento);
-  const pos = ranked.findIndex(r => r.grupo_codigo === "TI") + 1;
-  $("takeaway").textContent = pos === 1
-    ? `No período, TI tem a maior taxa de trancamento entre as ${ranked.length} áreas.`
-    : pos > 1 ? `No período, TI fica na ${pos}ª posição entre as ${ranked.length} áreas.` : "";
+  const pos = ordem.findIndex(r => r.grupo_codigo === "TI") + 1;
+  $("conclusao").textContent = pos === 1 ? `No período, TI tem a maior taxa de trancamento entre as ${ordem.length} áreas.`
+    : pos > 1 ? `No período, TI fica na ${pos}ª posição entre as ${ordem.length} áreas.` : "";
 
-  const att = state.yearInfo.filter(y => y.comparabilidade === "atencao" && years.includes(y.ano));
-  const cmp = $("comparability");
-  cmp.hidden = att.length === 0;
-  cmp.innerHTML = att.length ? `<details><summary><span class="kicker">Nota</span>
-    ${att.map(a => a.ano).join(", ")} têm mudanças de coleta ou de classificação. Ver detalhes</summary>
-    <ul>${att.map(a => `<li><strong>${a.ano}:</strong> ${
-      [...a.notas_curadas, ...a.alertas_automaticos].map(esc).join(" ")}</li>`).join("")}</ul></details>` : "";
+  const atencao = anosInfo.filter(a => a.comparabilidade === "atencao" && anos.includes(a.ano));
+  $("comparabilidade").hidden = !atencao.length;
+  $("comparabilidade").innerHTML = atencao.length ? `<details><summary><span class="kicker">Nota</span>
+    ${atencao.map(a => a.ano).join(", ")} têm mudanças de coleta ou de classificação. Ver detalhes</summary>
+    <ul>${atencao.map(a => `<li><strong>${a.ano}:</strong> ${[...a.notas_curadas, ...a.alertas_automaticos].map(esc).join(" ")}</li>`).join("")}</ul></details>` : "";
 
-  const avisos = summary.meta.avisos.filter(a => !a.startsWith("Anos com alerta"));
-  $("notes-list").innerHTML = [
+  const meta = resumo.meta;
+  $("notas").innerHTML = [
     "<strong>Unidade:</strong> vínculos aluno–curso no ano. Um mesmo estudante aparece em cada ano em que está vinculado; os números não contam pessoas.",
-    "<strong>Taxa de trancamento</strong> = matrículas trancadas ÷ (matrículas cursando ou formadas + trancadas). Trancamento não é o mesmo que evasão.",
-    "<strong>TI</strong> = cursos da área geral 06 da CINE Brasil (Computação e TIC), como Sistemas de Informação, ADS e Ciência da Computação. Licenciaturas em Computação contam como Educação.",
-    ...avisos.map(esc),
+    "<strong>Taxa de trancamento</strong> = matrículas trancadas ÷ (matrículas cursando ou formadas + trancadas). No Censo, matrícula trancada e aluno desvinculado do curso são situações de vínculo diferentes.",
+    "<strong>TI</strong> = cursos da área geral 06 da CINE Brasil/INEP (Computação e Tecnologias da Informação e Comunicação). Licenciaturas em Computação ficam na área de Educação.",
+    ...meta.avisos.filter(a => !a.startsWith("Anos com alerta")).map(esc),
   ].map(t => `<li>${t}</li>`).join("");
-  $("source").innerHTML = `${esc(summary.meta.fonte.nota)} Fonte: <a href="${esc(summary.meta.fonte.url)}" rel="noopener">${esc(summary.meta.fonte.nome)}, INEP</a>.
-    Classificação: mapeamento v${esc(summary.meta.classificacao.versao_mapeamento)}.
+  $("fonte").innerHTML = `${esc(meta.fonte.nota)} Fonte: <a href="${esc(meta.fonte.url)}" rel="noopener">${esc(meta.fonte.nome)}, INEP</a>.
+    Classificação: mapeamento v${esc(meta.classificacao.versao_mapeamento)}.
     <a href="${esc(API)}/methodology" rel="noopener">Metodologia completa</a>.`;
 }
 
-async function init() {
-  $("legend-annual").innerHTML = legendHTML();
+async function iniciar() {
+  $("legenda").innerHTML = legendaHTML();
   try {
-    const yrs = await api("/years");
-    state.yearInfo = yrs.data;
-    const available = yrs.data.filter(y => y.status === "disponivel").map(y => y.ano);
-    if (!available.length) throw new Error("A base consolidada não tem anos disponíveis.");
-    const opts = available.map(y => `<option value="${y}">${y}</option>`).join("");
-    $("f-start").innerHTML = opts;
-    $("f-end").innerHTML = opts;
-    $("f-start").value = available[0];
-    $("f-end").value = available[available.length - 1];
-  } catch (err) { showError(err); return; }
+    anosInfo = (await api("/years")).data;
+    const anos = anosInfo.filter(a => a.status === "disponivel").map(a => a.ano);
+    if (!anos.length) throw new Error("a base não tem anos disponíveis.");
+    const opcoes = anos.map(a => `<option value="${a}">${a}</option>`).join("");
+    $("ano-ini").innerHTML = $("ano-fim").innerHTML = opcoes;
+    $("ano-ini").value = anos[0];
+    $("ano-fim").value = anos[anos.length - 1];
+  } catch (e) { mostrarErro(e); return; }
 
-  ["f-start", "f-end"].forEach(id => $(id).addEventListener("change", load));
-  document.querySelectorAll(".segmented[data-filter]").forEach(group => {
-    group.addEventListener("click", e => {
-      const b = e.target.closest("button");
-      if (!b) return;
-      fstate[group.dataset.filter] = b.value;
-      group.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
-      load();
-    });
-  });
+  $("ano-ini").addEventListener("change", carregar);
+  $("ano-fim").addEventListener("change", carregar);
+  document.querySelectorAll("[data-filtro]").forEach(grupo => grupo.addEventListener("click", e => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    filtros[grupo.dataset.filtro] = b.value;
+    grupo.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    carregar();
+  }));
   let t;
-  window.addEventListener("resize", () => {
-    clearTimeout(t);
-    t = setTimeout(() => state.annual && render(), 150);
-  });
-  load();
+  window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(() => dados && desenhar(), 150); });
+  carregar();
 }
 
-init();
+iniciar();
 </script>
 </body>
 </html>

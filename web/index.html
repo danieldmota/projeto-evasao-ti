@@ -7,48 +7,22 @@
 <meta name="theme-color" content="#1c1a17" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%231f1b16%22/%3E%3Ctext x=%2216%22 y=%2222%22 font-family=%22Georgia,serif%22 font-size=%2216%22 font-style=%22italic%22 fill=%22%23f7f5ef%22 text-anchor=%22middle%22%3ETI%3C/text%3E%3C/svg%3E">
 <title>Permanência em TI</title>
-<script src="assets/tema.js"></script>
+<script src="tema.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&display=swap">
-<link rel="stylesheet" href="assets/tema.css">
-<link rel="stylesheet" href="assets/graficos.css">
-<link rel="stylesheet" href="assets/jornada/jornada.css">
-
+<link rel="stylesheet" href="estilo.css">
 <script>
-/* ============================================================================
-   CONFIGURAÇÃO DA JORNADA — único lugar que a equipe precisa editar.
-   ============================================================================ */
+// Configuração da jornada (o resto fica em jornada.js)
 window.JORNADA_CONFIG = {
-  // API de estatísticas (evasao-ti serve). Pode ser sobrescrita com ?api=URL.
-  api: "http://127.0.0.1:8000/api/v1",
-
-  // HTML do formulário vocacional. Troque pelo arquivo oficial quando chegar
-  // (veja o contrato no topo de formulario/formulario.html).
-  formulario: "formulario/formulario.html",
-
-  // "pesos": pontuação PROVISÓRIA com os data-pesos do HTML (mostra aviso de demonstração).
-  // "api":   envia para POST {api}/vocational/submissions e exibe o VocationalResult.
-  pontuacao: "pesos",
-
-  // Endpoints de registro. null = modo demonstração (nada é enviado e a tela avisa).
-  endpoints: {
-    interesse: null,      // ex.: "https://servidor/api/v1/vocational/it-interest"
-    participacao: null,   // ex.: "https://servidor/api/v1/participation"
-  },
-
-  // Se as áreas do questionário oficial forem diferentes das 5 áreas dos dados,
-  // mapeie aqui para destacar a área certa nos gráficos: { "codigo_do_teste": "TI" }.
-  mapaAreasParaDados: {},
-
-  // Textos do convite (etapa 5). [EDITAR] com as informações oficiais do projeto.
+  api: "/api/v1",                // endereço da API; dá para trocar com ?api=URL
+  formulario: "formulario.html", // trocar pelo formulário oficial
+  pontuacao: "pesos",            // "pesos" = demonstração; "api" = POST /vocational/submissions
+  endpoints: { interesse: null }, // null = não envia nada
+  mapaAreasParaDados: {},        // se as áreas do teste forem outras: { "codigo_do_teste": "TI" }
   projeto: {
-    descricao: "É um projeto de prevenção à evasão universitária em TI. Se você topar participar, a equipe poderá entrar em contato para explicar as próximas etapas.",
-    finalidade: "Entrar em contato com você sobre este projeto. Seus dados não são usados para outro fim nem vendidos.",
-    retencao: "Até o fim do projeto ou até você pedir a exclusão, o que vier primeiro.",
-    politicaUrl: "#",                 // [EDITAR] link da política de privacidade publicada
-    politicaVersao: "rascunho-0",     // [EDITAR] versão da política aceita no consentimento
-    purposeCode: "contato_projeto_prevencao_evasao_ti",
+    descricao: "É um projeto acadêmico de prevenção à evasão nos cursos de Tecnologia da Informação.", // [EDITAR]
+    saibaMaisUrl: null,          // link oficial do projeto, quando existir
   },
 };
 </script>
@@ -78,9 +52,9 @@ window.JORNADA_CONFIG = {
   </nav>
 
   <main id="conteudo" class="j-main" tabindex="-1">
-    <div id="j-stage" class="j-stage"></div>
+    <div id="j-stage"></div>
     <p class="j-hint" id="j-hint" role="status" hidden></p>
-    <div class="j-actions" id="j-actions">
+    <div class="j-actions">
       <button type="button" class="btn ghost" id="j-back">Voltar</button>
       <button type="button" class="btn primary" id="j-next">Continuar</button>
     </div>
@@ -88,10 +62,8 @@ window.JORNADA_CONFIG = {
 </div>
 
 <p class="visually-hidden" aria-live="polite" id="j-announce"></p>
-<noscript><p class="page">Esta jornada precisa de JavaScript. Você ainda pode ver os
-  <a href="estatisticas.html">dados de trancamento</a> e a
-  <a href="trilha-ti.html">trilha de estudos</a>.</p></noscript>
+<noscript><p class="page">Esta jornada precisa de JavaScript para funcionar.</p></noscript>
 
-<script type="module" src="assets/jornada/app.js"></script>
+<script type="module" src="jornada.js"></script>
 </body>
 </html>

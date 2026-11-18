@@ -1,0 +1,8 @@
+.venv/
+dados/brutos/
+dados/processados/
+testes/
+docs/
+*.ipynb
+.pytest_cache/
+.ruff_cache/

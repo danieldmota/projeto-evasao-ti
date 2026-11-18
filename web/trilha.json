@@ -1,0 +1,293 @@
+{
+  "versao": "2.0.0",
+  "revisado_em": "2026-11-18",
+  "aviso": "Conteúdo de orientação. As competências foram organizadas a partir das Diretrizes Curriculares Nacionais dos cursos de Computação e de currículos de referência internacionais; os materiais indicados são de terceiros, gratuitos na data da revisão, e podem mudar.",
+
+  "competencias": {
+    "titulo": "Cinco competências que você vai desenvolver em TI",
+    "introducao": "Estas cinco competências foram organizadas a partir das Diretrizes Curriculares Nacionais dos cursos de Computação, definidas pelo Conselho Nacional de Educação, e do currículo de referência internacional da ACM, IEEE e AAAI. Cada uma traz as fontes que a sustentam.",
+    "itens": [
+      {
+        "id": "logica",
+        "titulo": "Lógica e resolução de problemas",
+        "resumo": "Identificar problemas que podem ser resolvidos por um algoritmo e descrever a solução passo a passo.",
+        "por_que_importa": "É a primeira competência comum exigida dos formados em cursos de Computação pelas diretrizes nacionais, que também pedem que o estudante reconheça a importância do pensamento computacional.",
+        "fontes": [
+          { "ref": "dcn-2016", "trecho": "Art. 5º, I: “identificar problemas que tenham solução algorítmica”" },
+          { "ref": "dcn-2016", "trecho": "Art. 4º, VII: “reconhecer a importância do pensamento computacional na vida cotidiana”" },
+          { "ref": "wing-2006", "trecho": "Define pensamento computacional como resolver problemas usando conceitos da computação, como decomposição e abstração." }
+        ],
+        "como_desenvolver": [
+          { "texto": "Resolver exercícios curtos de lógica em vários dias da semana, em vez de muitos de uma vez só.", "fontes": ["dunlosky-2013"] },
+          { "texto": "Antes de programar, escrever a solução em português, dividindo o problema em partes menores.", "fontes": ["wing-2006"] },
+          { "texto": "Usar uma ferramenta que mostra o programa executando linha a linha, com as variáveis na tela.", "fontes": ["guo-2013"] }
+        ],
+        "recursos": ["curso-em-video", "cs50", "python-tutor"]
+      },
+      {
+        "id": "matematica",
+        "titulo": "Base matemática",
+        "resumo": "Entender as dimensões quantitativas de um problema: lógica, funções, porcentagem e, ao longo do curso, matemática discreta e estatística.",
+        "por_que_importa": "As diretrizes nacionais pedem que o formado saiba “compreender e explicar as dimensões quantitativas de um problema” e, em Ciência da Computação, tenha sólida formação em Matemática. O currículo internacional CS2023 aumentou o espaço dado à matemática.",
+        "fontes": [
+          { "ref": "dcn-2016", "trecho": "Art. 5º, V: “compreender e explicar as dimensões quantitativas de um problema”" },
+          { "ref": "dcn-2016", "trecho": "Art. 4º, § 1º, I: “sólida formação em Ciência da Computação e Matemática”" },
+          { "ref": "cs2023", "trecho": "Sumário executivo: “The role of mathematics has increased.”" }
+        ],
+        "como_desenvolver": [
+          { "texto": "Revisar os conteúdos do ensino médio em que você tem dúvida resolvendo exercícios, e não apenas relendo a teoria.", "fontes": ["dunlosky-2013"] },
+          { "texto": "Procurar a monitoria das disciplinas de matemática assim que a dúvida aparecer.", "fontes": ["ldb-1996"] }
+        ],
+        "recursos": ["khan-matematica", "obmep"]
+      },
+      {
+        "id": "programacao",
+        "titulo": "Programação com prática constante",
+        "resumo": "Resolver problemas usando um ambiente de programação e usar ferramentas da área, como o controle de versão (Git).",
+        "por_que_importa": "“Resolver problemas usando ambientes de programação” é competência comum nas diretrizes nacionais. O CS2023 registra que o controle de versão se tornou onipresente na indústria e que entender essas ferramentas é amplamente valioso.",
+        "fontes": [
+          { "ref": "dcn-2016", "trecho": "Art. 5º, III: “resolver problemas usando ambientes de programação”" },
+          { "ref": "cs2023", "trecho": "Área Software Engineering (SE-Tools): “version control becoming ubiquitous”; “especially version control systems”." },
+          { "ref": "cs2023", "trecho": "Área Software Development Fundamentals (SDF), parte do núcleo comum." }
+        ],
+        "como_desenvolver": [
+          { "texto": "Escolher uma linguagem de entrada e ficar nela até dominar o básico. Python é a linguagem de cursos introdutórios como o 6.100L do MIT.", "fontes": ["mit-6100l"] },
+          { "texto": "Praticar com exercícios curtos e frequentes, conferindo se o programa dá o resultado esperado.", "fontes": ["dunlosky-2013"] },
+          { "texto": "Guardar seus projetos em um repositório Git desde o começo.", "fontes": ["cs2023"] }
+        ],
+        "recursos": ["python-tutorial", "exercism", "freecodecamp", "pro-git", "learn-git-branching"]
+      },
+      {
+        "id": "autonomia",
+        "titulo": "Autonomia e hábitos de estudo",
+        "resumo": "Gerir a própria aprendizagem e o tempo, acompanhar as mudanças da tecnologia e ler textos técnicos em inglês.",
+        "por_que_importa": "As três habilidades aparecem entre as competências comuns das diretrizes nacionais. O CS2023 cita persistência e aprendizado ao longo da vida entre as disposições profissionais esperadas de quem se forma.",
+        "fontes": [
+          { "ref": "dcn-2016", "trecho": "Art. 5º, VI: “gerir a sua própria aprendizagem e desenvolvimento, incluindo a gestão de tempo”" },
+          { "ref": "dcn-2016", "trecho": "Art. 5º, IX: “adequar-se rapidamente às mudanças tecnológicas”; X: “ler textos técnicos na língua inglesa”" },
+          { "ref": "cs2023", "trecho": "Características dos egressos: “Professional dispositions such as persistence and life-long learning”." }
+        ],
+        "como_desenvolver": [
+          { "texto": "Montar um horário semanal de estudo com sessões espalhadas pelos dias da semana.", "fontes": ["dcn-2016", "dunlosky-2013"] },
+          { "texto": "Ler um pouco de documentação técnica em inglês com regularidade.", "fontes": ["dcn-2016"] },
+          { "texto": "Dormir bem: o sono participa da consolidação do que foi aprendido.", "fontes": ["diekelmann-born-2010"] }
+        ],
+        "recursos": ["mdn", "duolingo", "roadmap"]
+      },
+      {
+        "id": "colaboracao",
+        "titulo": "Comunicação e trabalho em equipe",
+        "resumo": "Apresentar trabalhos e soluções para públicos diferentes, de forma oral e escrita, e trabalhar em cooperação.",
+        "por_que_importa": "Comunicação e trabalho cooperativo estão entre as competências comuns das diretrizes nacionais. Um estudo publicado na revista Science mostrou que uma intervenção curta para fortalecer o sentimento de pertencimento melhorou o desempenho acadêmico de estudantes universitários negros nos Estados Unidos.",
+        "fontes": [
+          { "ref": "dcn-2016", "trecho": "Art. 5º, VII: apresentar trabalhos e soluções “para audiências diversas, em formatos apropriados (oral e escrito)”" },
+          { "ref": "dcn-2016", "trecho": "Art. 5º, XII: “ser capaz de realizar trabalho cooperativo e entender os benefícios que este pode produzir”" },
+          { "ref": "walton-cohen-2011", "trecho": "Intervenção de pertencimento social melhorou as notas de estudantes de grupos minorizados." }
+        ],
+        "como_desenvolver": [
+          { "texto": "Participar de grupos de estudo e da monitoria da sua instituição.", "fontes": ["ldb-1996", "walton-cohen-2011"] },
+          { "texto": "Explicar com suas palavras, por escrito ou em voz alta, o que acabou de aprender.", "fontes": ["dunlosky-2013"] },
+          { "texto": "Fazer um projeto em dupla usando controle de versão para dividir o trabalho.", "fontes": ["cs2023"] }
+        ],
+        "recursos": ["github-docs", "freecodecamp"]
+      }
+    ]
+  },
+
+  "recomendacoes": {
+    "titulo": "Por onde começar: trilha de estudos para iniciantes",
+    "introducao": "Um caminho em etapas, com materiais gratuitos. Não é preciso terminar uma etapa para começar a outra.",
+    "como_foi_montada": "A ordem começa pelos fundamentos — algoritmos, programação e matemática —, que as diretrizes nacionais listam como competências comuns e que o CS2023 coloca no núcleo comum (CS Core). Depois vêm ferramentas e áreas específicas. Os momentos indicados em cada etapa são sugestões deste projeto, não uma norma.",
+    "etapas": [
+      {
+        "id": "primeiros-passos",
+        "titulo": "Primeiros passos em lógica e programação",
+        "quando": "antes do curso ou nas primeiras semanas",
+        "objetivos": [
+          "Entender variáveis, condições (se/senão) e repetições.",
+          "Escrever e rodar seus primeiros programas em Python."
+        ],
+        "base": [
+          { "ref": "dcn-2016", "trecho": "Art. 5º, I e III: problemas com solução algorítmica e resolução com ambientes de programação." },
+          { "ref": "cs2023", "trecho": "Software Development Fundamentals (SDF)." }
+        ],
+        "recursos": ["curso-em-video", "cs50", "python-tutorial", "python-tutor"]
+      },
+      {
+        "id": "base-matematica",
+        "titulo": "Revisar a base de matemática",
+        "quando": "em paralelo à etapa 1",
+        "objetivos": [
+          "Rever frações, porcentagem, funções e equações.",
+          "Chegar às disciplinas de matemática do curso sem lacunas do ensino médio."
+        ],
+        "base": [
+          { "ref": "dcn-2016", "trecho": "Art. 5º, V: dimensões quantitativas de um problema." },
+          { "ref": "cs2023", "trecho": "Mathematical and Statistical Foundations (MSF)." }
+        ],
+        "recursos": ["khan-matematica", "obmep"]
+      },
+      {
+        "id": "ferramentas",
+        "titulo": "Controle de versão com Git",
+        "quando": "primeiro semestre",
+        "objetivos": [
+          "Usar Git para guardar o histórico dos seus códigos.",
+          "Publicar seus primeiros projetos no GitHub."
+        ],
+        "base": [
+          { "ref": "cs2023", "trecho": "Software Engineering (SE-Tools): “especially version control systems”." }
+        ],
+        "recursos": ["pro-git", "learn-git-branching", "github-docs"]
+      },
+      {
+        "id": "pratica",
+        "titulo": "Praticar com exercícios e projetos",
+        "quando": "durante todo o curso",
+        "objetivos": [
+          "Resolver exercícios com frequência.",
+          "Construir uma página web simples e consultar dados com SQL."
+        ],
+        "base": [
+          { "ref": "dunlosky-2013", "trecho": "Prática distribuída e autoteste estão entre as técnicas de estudo de maior utilidade." },
+          { "ref": "cs2023", "trecho": "Data Management (DM-Querying): “SQL Query Formation” no núcleo comum; Specialized Platform Development (SPD-Web)." }
+        ],
+        "recursos": ["exercism", "freecodecamp", "mdn", "sqlbolt"]
+      },
+      {
+        "id": "explorar",
+        "titulo": "Conhecer as áreas da computação",
+        "quando": "a partir do segundo semestre",
+        "objetivos": [
+          "Conhecer caminhos como desenvolvimento, dados, infraestrutura e segurança.",
+          "Entender estruturas de dados de forma visual."
+        ],
+        "base": [
+          { "ref": "cc2020", "trecho": "Descreve as disciplinas da computação: Ciência da Computação, Engenharia de Computação, Engenharia de Software, Sistemas de Informação, Tecnologia da Informação e Cibersegurança." },
+          { "ref": "cs2023", "trecho": "Algorithmic Foundations (AL)." }
+        ],
+        "recursos": ["roadmap", "visualgo", "kaggle-learn", "fundacao-bradesco"]
+      }
+    ],
+    "habitos": {
+      "titulo": "Hábitos de estudo com base em pesquisa",
+      "itens": [
+        { "texto": "Estude um pouco em vários dias, em vez de tudo na véspera da prova.", "fontes": ["dunlosky-2013"] },
+        { "texto": "Teste a si mesmo: resolver exercícios e questões ajuda mais do que só reler a matéria.", "fontes": ["dunlosky-2013"] },
+        { "texto": "Procure ajuda cedo: a monitoria é prevista em lei, e as instituições federais têm ações de apoio pedagógico.", "fontes": ["ldb-1996", "pnaes-2024"] },
+        { "texto": "Durma bem: o sono participa da consolidação da memória.", "fontes": ["diekelmann-born-2010"] }
+      ]
+    },
+    "antes_de_trancar": {
+      "titulo": "Pensando em trancar?",
+      "texto": "As regras de trancamento variam de uma instituição para outra: consulte o regulamento acadêmico e a coordenação do seu curso. Antes de decidir, conheça os apoios que existem:",
+      "itens": [
+        { "texto": "Monitoria nas disciplinas em que você está com dificuldade.", "fontes": ["ldb-1996"] },
+        { "texto": "Nas instituições federais, a Política Nacional de Assistência Estudantil prevê apoio pedagógico, alimentação, moradia, transporte e ações de saúde mental.", "fontes": ["pnaes-2024"] },
+        { "texto": "Bolsas e financiamento: Bolsa Permanência (instituições federais), ProUni e FIES.", "fontes": ["pnaes-2024", "prouni-2005", "fies-2001"] }
+      ]
+    }
+  },
+
+  "referencias": {
+    "dcn-2016": {
+      "citacao": "BRASIL. Conselho Nacional de Educação. Câmara de Educação Superior. Resolução CNE/CES nº 5, de 16 de novembro de 2016. Institui as Diretrizes Curriculares Nacionais para os cursos de graduação na área da Computação. Diário Oficial da União, Brasília, 17 nov. 2016.",
+      "url": "https://abmes.org.br/public/arquivos/legislacoes/Res-CES-CNE-005-2016-11-16.pdf",
+      "tipo": "norma oficial",
+      "acesso": "2026-11-18"
+    },
+    "cs2023": {
+      "citacao": "ACM; IEEE COMPUTER SOCIETY; AAAI. Computer Science Curricula 2023. New York: Association for Computing Machinery, 2024. DOI: 10.1145/3664191.",
+      "url": "https://csed.acm.org/",
+      "tipo": "currículo de referência",
+      "acesso": "2026-11-18"
+    },
+    "cc2020": {
+      "citacao": "ACM; IEEE COMPUTER SOCIETY. Computing Curricula 2020: paradigms for global computing education. New York: Association for Computing Machinery, 2020. DOI: 10.1145/3467967.",
+      "url": "https://www.acm.org/binaries/content/assets/education/curricula-recommendations/cc2020.pdf",
+      "tipo": "currículo de referência",
+      "acesso": "2026-11-18"
+    },
+    "wing-2006": {
+      "citacao": "WING, J. M. Computational thinking. Communications of the ACM, v. 49, n. 3, p. 33-35, 2006. DOI: 10.1145/1118178.1118215.",
+      "url": "https://doi.org/10.1145/1118178.1118215",
+      "tipo": "artigo científico",
+      "acesso": "2026-11-18"
+    },
+    "dunlosky-2013": {
+      "citacao": "DUNLOSKY, J.; RAWSON, K. A.; MARSH, E. J.; NATHAN, M. J.; WILLINGHAM, D. T. Improving students' learning with effective learning techniques: promising directions from cognitive and educational psychology. Psychological Science in the Public Interest, v. 14, n. 1, p. 4-58, 2013. DOI: 10.1177/1529100612453266.",
+      "url": "https://doi.org/10.1177/1529100612453266",
+      "tipo": "artigo científico",
+      "acesso": "2026-11-18"
+    },
+    "walton-cohen-2011": {
+      "citacao": "WALTON, G. M.; COHEN, G. L. A brief social-belonging intervention improves academic and health outcomes of minority students. Science, v. 331, n. 6023, p. 1447-1451, 2011. DOI: 10.1126/science.1198364.",
+      "url": "https://doi.org/10.1126/science.1198364",
+      "tipo": "artigo científico",
+      "acesso": "2026-11-18"
+    },
+    "diekelmann-born-2010": {
+      "citacao": "DIEKELMANN, S.; BORN, J. The memory function of sleep. Nature Reviews Neuroscience, v. 11, n. 2, p. 114-126, 2010. DOI: 10.1038/nrn2762.",
+      "url": "https://doi.org/10.1038/nrn2762",
+      "tipo": "artigo científico",
+      "acesso": "2026-11-18"
+    },
+    "guo-2013": {
+      "citacao": "GUO, P. J. Online Python Tutor: embeddable web-based program visualization for CS education. In: ACM TECHNICAL SYMPOSIUM ON COMPUTER SCIENCE EDUCATION, 44., 2013, Denver. Proceedings... New York: ACM, 2013. p. 579-584. DOI: 10.1145/2445196.2445368.",
+      "url": "https://doi.org/10.1145/2445196.2445368",
+      "tipo": "artigo científico",
+      "acesso": "2026-11-18"
+    },
+    "mit-6100l": {
+      "citacao": "MASSACHUSETTS INSTITUTE OF TECHNOLOGY. 6.100L Introduction to CS and Programming using Python. MIT OpenCourseWare, 2022.",
+      "url": "https://ocw.mit.edu/courses/6-100l-introduction-to-cs-and-programming-using-python-fall-2022/",
+      "tipo": "curso de referência",
+      "acesso": "2026-11-18"
+    },
+    "ldb-1996": {
+      "citacao": "BRASIL. Lei nº 9.394, de 20 de dezembro de 1996. Estabelece as diretrizes e bases da educação nacional. Art. 84 (monitoria).",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9394.htm",
+      "tipo": "lei",
+      "acesso": "2026-11-18"
+    },
+    "pnaes-2024": {
+      "citacao": "BRASIL. Lei nº 14.914, de 3 de julho de 2024. Institui a Política Nacional de Assistência Estudantil (PNAES). Arts. 4º, 5º e 9º.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_Ato2023-2026/2024/Lei/L14914.htm",
+      "tipo": "lei",
+      "acesso": "2026-11-18"
+    },
+    "prouni-2005": {
+      "citacao": "BRASIL. Lei nº 11.096, de 13 de janeiro de 2005. Institui o Programa Universidade para Todos (PROUNI).",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2005/lei/l11096.htm",
+      "tipo": "lei",
+      "acesso": "2026-11-18"
+    },
+    "fies-2001": {
+      "citacao": "BRASIL. Lei nº 10.260, de 12 de julho de 2001. Dispõe sobre o Fundo de Financiamento ao Estudante do Ensino Superior.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10260.htm",
+      "tipo": "lei",
+      "acesso": "2026-11-18"
+    }
+  },
+
+  "recursos": {
+    "curso-em-video": { "nome": "Curso em Vídeo", "url": "https://www.cursoemvideo.com/", "descricao": "Cursos em vídeo de algoritmos, Python e HTML.", "idioma": "pt-BR", "custo": "gratuito" },
+    "cs50": { "nome": "CS50x — Introdução à Ciência da Computação (Harvard)", "url": "https://cs50.harvard.edu/x/", "descricao": "Curso introdutório com aulas, exercícios e projetos.", "idioma": "inglês (vídeos com legendas)", "custo": "gratuito" },
+    "python-tutorial": { "nome": "Tutorial oficial do Python", "url": "https://docs.python.org/pt-br/3/tutorial/", "descricao": "Documentação oficial da linguagem, em português.", "idioma": "pt-BR", "custo": "gratuito" },
+    "python-tutor": { "nome": "Python Tutor", "url": "https://pythontutor.com/", "descricao": "Mostra o código executando passo a passo, com as variáveis na tela.", "idioma": "inglês (uso visual)", "custo": "gratuito" },
+    "khan-matematica": { "nome": "Khan Academy — Matemática", "url": "https://pt.khanacademy.org/math", "descricao": "Aulas e exercícios de matemática do básico ao avançado.", "idioma": "pt-BR", "custo": "gratuito" },
+    "obmep": { "nome": "Portal da Matemática (OBMEP/IMPA)", "url": "https://portaldaobmep.impa.br/", "descricao": "Videoaulas de matemática do ensino fundamental e médio.", "idioma": "pt-BR", "custo": "gratuito" },
+    "pro-git": { "nome": "Livro Pro Git", "url": "https://git-scm.com/book/pt-br/v2", "descricao": "Livro oficial do Git, em português.", "idioma": "pt-BR", "custo": "gratuito" },
+    "learn-git-branching": { "nome": "Learn Git Branching", "url": "https://learngitbranching.js.org/?locale=pt_BR", "descricao": "Exercícios interativos para aprender Git.", "idioma": "pt-BR", "custo": "gratuito" },
+    "github-docs": { "nome": "Documentação do GitHub — Introdução", "url": "https://docs.github.com/pt/get-started", "descricao": "Como criar repositórios e colaborar em projetos.", "idioma": "pt-BR", "custo": "gratuito" },
+    "exercism": { "nome": "Exercism", "url": "https://exercism.org/", "descricao": "Exercícios de programação em dezenas de linguagens, com mentoria voluntária.", "idioma": "inglês", "custo": "gratuito" },
+    "freecodecamp": { "nome": "freeCodeCamp em português", "url": "https://www.freecodecamp.org/portuguese/", "descricao": "Artigos e tutoriais práticos de desenvolvimento.", "idioma": "pt-BR", "custo": "gratuito" },
+    "mdn": { "nome": "MDN Web Docs — Aprenda desenvolvimento web", "url": "https://developer.mozilla.org/pt-BR/docs/Learn", "descricao": "Referência e tutoriais de HTML, CSS e JavaScript.", "idioma": "pt-BR", "custo": "gratuito" },
+    "sqlbolt": { "nome": "SQLBolt", "url": "https://www.sqlbolt.com/", "descricao": "Lições interativas de SQL.", "idioma": "inglês", "custo": "gratuito" },
+    "roadmap": { "nome": "roadmap.sh", "url": "https://roadmap.sh/", "descricao": "Mapas do que estudar em cada carreira de TI.", "idioma": "inglês", "custo": "gratuito" },
+    "visualgo": { "nome": "VisuAlgo", "url": "https://visualgo.net/pt", "descricao": "Animações de estruturas de dados e algoritmos.", "idioma": "pt-BR (parcial)", "custo": "gratuito" },
+    "kaggle-learn": { "nome": "Kaggle Learn", "url": "https://www.kaggle.com/learn", "descricao": "Microcursos práticos de Python e análise de dados.", "idioma": "inglês", "custo": "gratuito" },
+    "fundacao-bradesco": { "nome": "Escola Virtual — Fundação Bradesco", "url": "https://www.ev.org.br/", "descricao": "Cursos online de tecnologia.", "idioma": "pt-BR", "custo": "gratuito" },
+    "duolingo": { "nome": "Duolingo", "url": "https://www.duolingo.com/", "descricao": "Prática diária de inglês.", "idioma": "pt-BR → inglês", "custo": "gratuito (com plano pago opcional)" }
+  }
+}
