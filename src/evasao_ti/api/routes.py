@@ -170,15 +170,20 @@ def _unclassified_warning(snap: Snapshot, f: Filters) -> list[str]:
     out = []
     if nc:
         out.append(
-            f"{nc / total:.2%} das matrículas do recorte estão em cursos 'Não classificado' "
+            f"{_pct_br(nc / total)} das matrículas do recorte estão em cursos 'Não classificado' "
             "(ex.: Área Básica de Ingresso)."
         )
     if low:
         out.append(
-            f"{low / total:.2%} das matrículas do recorte estão em rótulos com correspondência "
-            "de confiança 'baixa'."
+            f"{_pct_br(low / total)} das matrículas do recorte estão em rótulos com "
+            "correspondência de confiança 'baixa'."
         )
     return out
+
+
+def _pct_br(v: float) -> str:
+    """Percentual no formato brasileiro (vírgula decimal): 0.0035 -> '0,35%'."""
+    return f"{v:.2%}".replace(".", ",")
 
 
 # ---------------------------------------------------------------- endpoints

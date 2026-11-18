@@ -33,6 +33,18 @@ const { data, meta } = await r.json();
 
 CORS: configure `EVASAO_CORS_ORIGINS` com o domínio do site. A API aceita só `GET`.
 
+### Página de referência: `web/estatisticas.html`
+Página estática (HTML + JS puro, sem dependências) que implementa a seção 6 do site: indicadores do último ano, série anual por área com TI em destaque, consolidado do período, tabelas acessíveis, alertas de comparabilidade e notas de leitura. Tem filtros de período, modalidade e rede, modo claro/escuro e layout para celular.
+
+```bash
+evasao-ti serve                                            # API em 127.0.0.1:8000
+python -m http.server 5173 --bind 127.0.0.1 --directory web
+# abra http://localhost:5173/estatisticas.html
+```
+Para outra API: `estatisticas.html?api=https://minha-api/api/v1`. A origem da página precisa estar em `EVASAO_CORS_ORIGINS`. Abrir o arquivo direto (`file://`) não funciona por causa do CORS.
+
+Ela serve de referência visual e de contrato. Quando o site definitivo existir, os gráficos podem ser portados para o framework escolhido, mantendo as mesmas chamadas e regras de apresentação.
+
 ## 2. Formulário vocacional (quando o HTML chegar)
 
 **Ainda não foi implementado** (de propósito): perguntas, pesos e algoritmo dependem do questionário real. O que existe são contratos em [`vocational/contracts.py`](../src/evasao_ti/vocational/contracts.py), sem rotas publicadas.

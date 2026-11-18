@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trancamento no Ensino Superior</title>
+<style>
+  :root {
+    color-scheme: light;
+    --surface-0: #f4f3ef;
+    --surface-1: #fcfcfb;
+    --text-primary: #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted: #6f6d68;
+    --axis-muted: #898781;
+    --grid: #e1e0d9;
+    --border: #e1e0d9;
+    --accent: #2a78d6;
+    --s-TI: #2a78d6;
+    --s-EXATAS_EXCETO_TI: #eb6834;
+    --s-NATUREZA_SAUDE: #1baf7a;
+    --s-GESTAO_NEGOCIOS: #eda100;
+    --s-HUMANAS_SOCIAIS_ARTES: #e87ba4;
+    --warn-bg: #fff6e0;
+    --warn-border: #eda100;
+    --err-bg: #fdecec;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --surface-0: #121211;
+      --surface-1: #1a1a19;
+      --text-primary: #f0efec;
+      --text-secondary: #c3c2b7;
+      --text-muted: #a3a29b;
+      --axis-muted: #898781;
+      --grid: #2c2c2a;
+      --border: #2c2c2a;
+      --accent: #3987e5;
+      --s-TI: #3987e5;
+      --s-EXATAS_EXCETO_TI: #d95926;
+      --s-NATUREZA_SAUDE: #199e70;
+      --s-GESTAO_NEGOCIOS: #c98500;
+      --s-HUMANAS_SOCIAIS_ARTES: #d55181;
+      --warn-bg: #2b2414;
+      --warn-border: #c98500;
+      --err-bg: #2d1717;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-0: #121211;
+    --surface-1: #1a1a19;
+    --text-primary: #f0efec;
+    --text-secondary: #c3c2b7;
+    --text-muted: #a3a29b;
+    --axis-muted: #898781;
+    --grid: #2c2c2a;
+    --border: #2c2c2a;
+    --accent: #3987e5;
+    --s-TI: #3987e5;
+    --s-EXATAS_EXCETO_TI: #d95926;
+    --s-NATUREZA_SAUDE: #199e70;
+    --s-GESTAO_NEGOCIOS: #c98500;
+    --s-HUMANAS_SOCIAIS_ARTES: #d55181;
+    --warn-bg: #2b2414;
+    --warn-border: #c98500;
+    --err-bg: #2d1717;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--surface-0);
+    color: var(--text-primary);
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 960px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 1.75rem; line-height: 1.2; margin: 0 0 8px; }
+  h2 { font-size: 1.125rem; margin: 0 0 4px; }
+  p.lead { color: var(--text-secondary); margin: 0 0 24px; max-width: 65ch; }
+  .sub { color: var(--text-secondary); font-size: .875rem; margin: 0 0 16px; }
+  .card {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  /* Filtros: uma linha acima dos gráficos */
+  .filters { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: end; margin-bottom: 20px; }
+  .filters label { display: flex; flex-direction: column; font-size: .8125rem; color: var(--text-secondary); gap: 4px; }
+  select {
+    font: inherit; font-size: .9375rem; color: var(--text-primary);
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 8px;
+    padding: 6px 10px; min-height: 36px;
+  }
+  select:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* Stat tiles */
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .tile { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+  .tile .label { font-size: .8125rem; color: var(--text-secondary); }
+  .tile .value { font-size: 1.75rem; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.2; margin-top: 4px; }
+  .tile .ctx { font-size: .8125rem; color: var(--text-muted); margin-top: 2px; }
+  .tile .key { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: baseline; }
+
+  /* Legenda */
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0 0 8px; padding: 0; list-style: none; font-size: .8125rem; color: var(--text-secondary); }
+  .legend li { display: flex; align-items: center; gap: 6px; }
+  .legend .sw { width: 14px; height: 3px; border-radius: 2px; }
+  .legend .sw.dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  .chart { position: relative; width: 100%; }
+  .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .chart text { font-family: inherit; }
+  .tooltip {
+    position: absolute; pointer-events: none; z-index: 2;
+    background: var(--surface-1); color: var(--text-primary);
+    border: 1px solid var(--border); border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.12);
+    padding: 8px 10px; font-size: .8125rem; min-width: 180px;
+    opacity: 0; transition: opacity .08s;
+  }
+  .tooltip.on { opacity: 1; }
+  .tooltip .t-title { font-weight: 600; margin-bottom: 4px; }
+  .tooltip .row { display: flex; align-items: center; gap: 6px; justify-content: space-between; font-variant-numeric: tabular-nums; }
+  .tooltip .row span:first-child { display: flex; align-items: center; gap: 6px; color: var(--text-secondary); }
+  .tooltip .k { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+
+  details { margin-top: 12px; }
+  summary { cursor: pointer; color: var(--text-secondary); font-size: .875rem; }
+  .table-wrap { overflow-x: auto; margin-top: 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: .8125rem; font-variant-numeric: tabular-nums; }
+  th, td { padding: 6px 8px; border-bottom: 1px solid var(--border); text-align: right; white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: var(--text-secondary); font-weight: 600; }
+
+  .notes { font-size: .875rem; color: var(--text-secondary); }
+  .notes ul { padding-left: 20px; margin: 8px 0; }
+  .alert { border-left: 3px solid var(--warn-border); background: var(--warn-bg); padding: 10px 12px; border-radius: 6px; font-size: .875rem; margin-bottom: 20px; }
+  .alert details { margin: 0; }
+  .alert summary { color: var(--text-primary); font-size: .875rem; }
+  .alert ul { margin: 8px 0 0; padding-left: 20px; color: var(--text-secondary); }
+  .error { background: var(--err-bg); border-radius: 12px; padding: 16px; margin-bottom: 20px; }
+  .error code { font-size: .8125rem; }
+  a { color: var(--accent); }
+  .muted { color: var(--text-muted); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Trancamento de matrícula no ensino superior</h1>
+  <p class="lead">
+    Percentual de vínculos com matrícula trancada em cursos de graduação no Brasil, por área de
+    conhecimento, com Tecnologia da Informação (TI) em destaque. Dados calculados a partir dos
+    microdados do Censo da Educação Superior (INEP).
+  </p>
+
+  <div id="error" class="error" hidden></div>
+
+  <div class="filters" role="group" aria-label="Filtros">
+    <label>De <select id="f-start"></select></label>
+    <label>Até <select id="f-end"></select></label>
+    <label>Modalidade
+      <select id="f-mod">
+        <option value="">Todas</option>
+        <option value="presencial">Presencial</option>
+        <option value="ead">A distância (EaD)</option>
+      </select>
+    </label>
+    <label>Rede
+      <select id="f-rede">
+        <option value="">Todas</option>
+        <option value="publica">Pública</option>
+        <option value="privada">Privada</option>
+      </select>
+    </label>
+  </div>
+
+  <div id="comparability" class="alert" hidden></div>
+
+  <section class="tiles" aria-label="Indicadores do último ano do período">
+    <div class="tile">
+      <div class="label"><span class="key" style="background:var(--s-TI)"></span>Taxa de trancamento em TI</div>
+      <div class="value" id="t-ti">–</div>
+      <div class="ctx" id="t-ti-ctx">&nbsp;</div>
+    </div>
+    <div class="tile">
+      <div class="label">Taxa de trancamento, todas as áreas</div>
+      <div class="value" id="t-all">–</div>
+      <div class="ctx" id="t-all-ctx">&nbsp;</div>
+    </div>
+    <div class="tile">
+      <div class="label">Matrículas trancadas em TI</div>
+      <div class="value" id="t-ti-n">–</div>
+      <div class="ctx" id="t-ti-n-ctx">&nbsp;</div>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="h-annual">
+    <h2 id="h-annual">Evolução anual da taxa de trancamento</h2>
+    <p class="sub">Trancadas ÷ (matrículas + trancadas), por área. Passe o mouse para ver os valores de cada ano.</p>
+    <ul class="legend" id="legend-annual"></ul>
+    <div class="chart" id="chart-annual"><div class="tooltip" role="status"></div></div>
+    <details>
+      <summary>Ver dados em tabela</summary>
+      <div class="table-wrap" id="table-annual"></div>
+    </details>
+  </section>
+
+  <section class="card" aria-labelledby="h-summary">
+    <h2 id="h-summary">Consolidado do período</h2>
+    <p class="sub" id="summary-sub">Soma de todos os anos selecionados (vínculos-ano, não pessoas).</p>
+    <div class="chart" id="chart-summary"><div class="tooltip" role="status"></div></div>
+    <details>
+      <summary>Ver dados em tabela</summary>
+      <div class="table-wrap" id="table-summary"></div>
+    </details>
+  </section>
+
+  <section class="card notes" aria-labelledby="h-notes">
+    <h2 id="h-notes">Como ler estes números</h2>
+    <ul id="notes-list"></ul>
+    <p class="muted" id="source"></p>
+  </section>
+</main>
+
+<script>
+(() => {
+  "use strict";
+
+  // ------------------------------------------------------------------ config
+  const params = new URLSearchParams(location.search);
+  const API = (params.get("api") || "http://127.0.0.1:8000/api/v1").replace(/\/$/, "");
+
+  const SERIES = [
+    { code: "TI", label: "Tecnologia da Informação" },
+    { code: "EXATAS_EXCETO_TI", label: "Exatas e Tecnologia (exceto TI)" },
+    { code: "NATUREZA_SAUDE", label: "Natureza e Saúde" },
+    { code: "GESTAO_NEGOCIOS", label: "Gestão e Negócios" },
+    { code: "HUMANAS_SOCIAIS_ARTES", label: "Humanas, Sociais e Artes" },
+  ];
+  const LABEL = Object.fromEntries(SERIES.map(s => [s.code, s.label]));
+  const color = code => `var(--s-${code})`;
+
+  const nf = new Intl.NumberFormat("pt-BR");
+  const pct = (v, d = 1) => v == null ? "sem dado" :
+    (v * 100).toLocaleString("pt-BR", { minimumFractionDigits: d, maximumFractionDigits: d }) + "%";
+  const compact = v => v == null ? "sem dado" :
+    new Intl.NumberFormat("pt-BR", { notation: "compact", maximumFractionDigits: 1 }).format(v);
+
+  const $ = id => document.getElementById(id);
+  const svgNS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs = {}, parent) => {
+    const n = document.createElementNS(svgNS, tag);
+    for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+    if (parent) parent.appendChild(n);
+    return n;
+  };
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  async function api(path, query = {}) {
+    const qs = new URLSearchParams();
+    for (const [k, v] of Object.entries(query)) {
+      if (v === "" || v == null) continue;
+      (Array.isArray(v) ? v : [v]).forEach(x => qs.append(k, x));
+    }
+    const r = await fetch(`${API}${path}${qs.toString() ? "?" + qs : ""}`);
+    const body = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(body?.error?.message || `HTTP ${r.status}`);
+    return body;
+  }
+
+  function showError(err) {
+    const box = $("error");
+    box.hidden = false;
+    box.innerHTML = `<strong>Não foi possível carregar os dados.</strong> ${esc(err.message)}<br>
+      Verifique se a API está rodando: <code>evasao-ti serve</code> (endereço esperado:
+      <code>${esc(API)}</code>). Para outro endereço, abra esta página com <code>?api=URL</code>.`;
+  }
+
+  // ------------------------------------------------------------------ eixos
+  function niceMax(v) {
+    const step = v > 0.3 ? 0.1 : 0.05;
+    return Math.max(step, Math.ceil(v / step) * step);
+  }
+
+  // ------------------------------------------------------------------ gráfico de linhas
+  function renderLines(container, rows, years) {
+    container.querySelectorAll("svg").forEach(n => n.remove());
+    const tip = container.querySelector(".tooltip");
+    const W = Math.max(320, container.clientWidth);
+    const narrow = W < 560;
+    const H = narrow ? 260 : 320;
+    const m = { top: 12, right: narrow ? 64 : 120, bottom: 28, left: 44 };
+    const iw = W - m.left - m.right, ih = H - m.top - m.bottom;
+
+    const byKey = new Map(rows.map(r => [`${r.ano}|${r.grupo_codigo}`, r]));
+    // escala só com as séries desenhadas (ex.: "Não classificado" fica fora do gráfico)
+    const values = rows.filter(r => LABEL[r.grupo_codigo])
+      .map(r => r.taxa_trancamento).filter(v => v != null);
+    const yMax = niceMax(Math.max(0.01, ...values));
+    const x = i => years.length === 1 ? iw / 2 : (i / (years.length - 1)) * iw;
+    const y = v => ih - (v / yMax) * ih;
+
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img",
+      "aria-label": "Gráfico de linhas: taxa de trancamento por ano e área" }, container);
+    const g = el("g", { transform: `translate(${m.left},${m.top})` }, svg);
+
+    // grade e eixo Y
+    const step = yMax > 0.3 ? 0.1 : 0.05;
+    for (let t = 0; t <= yMax + 1e-9; t += step) {
+      el("line", { x1: 0, x2: iw, y1: y(t), y2: y(t), stroke: "var(--grid)", "stroke-width": 1 }, g);
+      const tx = el("text", { x: -8, y: y(t), "text-anchor": "end", "dominant-baseline": "middle",
+        fill: "var(--axis-muted)", "font-size": 12 }, g);
+      tx.textContent = Math.round(t * 100) + "%";
+    }
+    // eixo X
+    const every = narrow ? Math.ceil(years.length / 5) : (years.length > 10 ? 2 : 1);
+    years.forEach((yr, i) => {
+      if (i % every !== 0 && i !== years.length - 1) return;
+      const tx = el("text", { x: x(i), y: ih + 20, "text-anchor": "middle",
+        fill: "var(--axis-muted)", "font-size": 12 }, g);
+      tx.textContent = yr;
+    });
+
+    // linhas (TI desenhada por último, por cima)
+    const order = [...SERIES].reverse();
+    const ends = [];
+    for (const s of order) {
+      let d = "", pen = false, last = null;
+      years.forEach((yr, i) => {
+        const v = byKey.get(`${yr}|${s.code}`)?.taxa_trancamento;
+        if (v == null) { pen = false; return; }      // lacuna: ano sem dado não vira zero
+        d += `${pen ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`;
+        pen = true; last = { i, v };
+      });
+      if (!d) continue;
+      el("path", { d, fill: "none", stroke: color(s.code), "stroke-width": s.code === "TI" ? 2.5 : 2,
+        "stroke-linejoin": "round", "stroke-linecap": "round" }, g);
+      if (last) {
+        el("circle", { cx: x(last.i), cy: y(last.v), r: 4, fill: color(s.code),
+          stroke: "var(--surface-1)", "stroke-width": 2 }, g);
+        ends.push({ code: s.code, x: x(last.i), y: y(last.v), v: last.v });
+      }
+    }
+    // rótulo direto só para TI (série em destaque); demais pela legenda e tooltip
+    const ti = ends.find(e => e.code === "TI");
+    if (ti) {
+      const t = el("text", { x: ti.x + 10, y: ti.y, "dominant-baseline": "middle",
+        fill: "var(--text-primary)", "font-size": 13, "font-weight": 600 }, g);
+      t.textContent = `TI ${pct(ti.v)}`;
+    }
+
+    // camada de hover: crosshair + tooltip com todas as séries do ano
+    const cross = el("line", { y1: 0, y2: ih, stroke: "var(--axis-muted)", "stroke-width": 1,
+      visibility: "hidden" }, g);
+    const dots = el("g", { visibility: "hidden" }, g);
+    const hit = el("rect", { x: 0, y: 0, width: iw, height: ih, fill: "transparent" }, g);
+
+    const move = evt => {
+      const pt = svg.getBoundingClientRect();
+      const scale = W / pt.width;
+      const px = (evt.clientX - pt.left) * scale - m.left;
+      const i = Math.max(0, Math.min(years.length - 1,
+        Math.round(years.length === 1 ? 0 : (px / iw) * (years.length - 1))));
+      const yr = years[i];
+      cross.setAttribute("x1", x(i)); cross.setAttribute("x2", x(i));
+      cross.setAttribute("visibility", "visible");
+      dots.replaceChildren();
+      const items = SERIES.map(s => ({ s, r: byKey.get(`${yr}|${s.code}`) }))
+        .sort((a, b) => (b.r?.taxa_trancamento ?? -1) - (a.r?.taxa_trancamento ?? -1));
+      for (const { s, r } of items) {
+        if (r?.taxa_trancamento == null) continue;
+        el("circle", { cx: x(i), cy: y(r.taxa_trancamento), r: 4, fill: color(s.code),
+          stroke: "var(--surface-1)", "stroke-width": 2 }, dots);
+      }
+      dots.setAttribute("visibility", "visible");
+      tip.innerHTML = `<div class="t-title">${yr}</div>` + items.map(({ s, r }) =>
+        `<div class="row"><span><i class="k" style="background:${color(s.code)}"></i>${esc(s.label)}</span>
+         <strong>${pct(r?.taxa_trancamento)}</strong></div>`).join("");
+      const cw = container.clientWidth;
+      const left = (m.left + x(i)) / scale;
+      tip.style.left = (left > cw / 2 ? left - tip.offsetWidth - 12 : left + 12) + "px";
+      tip.style.top = (m.top / scale) + "px";
+      tip.classList.add("on");
+    };
+    const leave = () => {
+      cross.setAttribute("visibility", "hidden");
+      dots.setAttribute("visibility", "hidden");
+      tip.classList.remove("on");
+    };
+    hit.addEventListener("pointermove", move);
+    hit.addEventListener("pointerleave", leave);
+  }
+
+  // ------------------------------------------------------------------ barras horizontais
+  function renderBars(container, rows) {
+    container.querySelectorAll("svg").forEach(n => n.remove());
+    const tip = container.querySelector(".tooltip");
+    const data = rows.filter(r => LABEL[r.grupo_codigo] && r.taxa_trancamento != null)
+      .sort((a, b) => b.taxa_trancamento - a.taxa_trancamento);
+    const W = Math.max(320, container.clientWidth);
+    const narrow = W < 560;
+    const labelW = narrow ? 0 : 230;
+    const bar = 20, gap = narrow ? 30 : 14;
+    const m = { top: 4, right: 64, bottom: 4, left: labelW };
+    const iw = W - m.left - m.right;
+    const rowH = bar + gap + (narrow ? 0 : 0);
+    const H = m.top + m.bottom + data.length * rowH;
+    const xMax = niceMax(Math.max(0.01, ...data.map(d => d.taxa_trancamento)));
+    const xs = v => (v / xMax) * iw;
+
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img",
+      "aria-label": "Gráfico de barras: taxa de trancamento consolidada por área" }, container);
+    const g = el("g", { transform: `translate(${m.left},${m.top})` }, svg);
+    el("line", { x1: 0, x2: 0, y1: 0, y2: H - m.top - m.bottom, stroke: "var(--grid)" }, g);
+
+    data.forEach((d, i) => {
+      const top = i * rowH + (narrow ? 16 : gap / 2);
+      const w = Math.max(2, xs(d.taxa_trancamento));
+      const r = Math.min(4, w / 2);
+      // ponta arredondada (4px) na extremidade do dado, reta na linha de base
+      const p = `M0,${top} H${w - r} Q${w},${top} ${w},${top + r} V${top + bar - r} Q${w},${top + bar} ${w - r},${top + bar} H0 Z`;
+      const isTI = d.grupo_codigo === "TI";
+      el("path", { d: p, fill: color(d.grupo_codigo) }, g);
+
+      const name = el("text", narrow
+        ? { x: 0, y: top - 5, fill: "var(--text-secondary)", "font-size": 12 }
+        : { x: -10, y: top + bar / 2, "text-anchor": "end", "dominant-baseline": "middle",
+            fill: isTI ? "var(--text-primary)" : "var(--text-secondary)", "font-size": 13,
+            "font-weight": isTI ? 600 : 400 }, g);
+      name.textContent = LABEL[d.grupo_codigo];
+
+      const val = el("text", { x: w + 8, y: top + bar / 2, "dominant-baseline": "middle",
+        fill: "var(--text-primary)", "font-size": 13, "font-weight": isTI ? 600 : 400 }, g);
+      val.textContent = pct(d.taxa_trancamento);
+
+      const hit = el("rect", { x: -labelW, y: top - gap / 2, width: W, height: rowH,
+        fill: "transparent" }, g);
+      hit.addEventListener("pointermove", evt => {
+        tip.innerHTML = `<div class="t-title"><i class="k" style="display:inline-block;margin-right:6px;background:${color(d.grupo_codigo)}"></i>${esc(LABEL[d.grupo_codigo])}</div>
+          <div class="row"><span>Taxa de trancamento</span><strong>${pct(d.taxa_trancamento)}</strong></div>
+          <div class="row"><span>Trancadas</span><strong>${nf.format(d.trancadas)}</strong></div>
+          <div class="row"><span>Matrículas</span><strong>${nf.format(d.matriculas)}</strong></div>`;
+        const box = container.getBoundingClientRect();
+        let left = evt.clientX - box.left + 12;
+        if (left + tip.offsetWidth > box.width) left = evt.clientX - box.left - tip.offsetWidth - 12;
+        tip.style.left = left + "px";
+        tip.style.top = (evt.clientY - box.top + 12) + "px";
+        tip.classList.add("on");
+      });
+      hit.addEventListener("pointerleave", () => tip.classList.remove("on"));
+    });
+  }
+
+  // ------------------------------------------------------------------ tabelas
+  function annualTable(rows, years) {
+    const byKey = new Map(rows.map(r => [`${r.ano}|${r.grupo_codigo}`, r]));
+    let h = `<table><thead><tr><th>Ano</th>${SERIES.map(s => `<th>${esc(s.label)}</th>`).join("")}</tr></thead><tbody>`;
+    for (const yr of years) {
+      h += `<tr><td>${yr}</td>${SERIES.map(s => `<td>${pct(byKey.get(`${yr}|${s.code}`)?.taxa_trancamento)}</td>`).join("")}</tr>`;
+    }
+    return h + "</tbody></table>";
+  }
+  function summaryTable(rows) {
+    const data = rows.filter(r => LABEL[r.grupo_codigo]);
+    return `<table><thead><tr><th>Área</th><th>Matrículas</th><th>Trancadas</th><th>Taxa</th></tr></thead><tbody>` +
+      data.map(r => `<tr><td>${esc(LABEL[r.grupo_codigo])}</td><td>${nf.format(r.matriculas ?? 0)}</td>
+        <td>${nf.format(r.trancadas ?? 0)}</td><td>${pct(r.taxa_trancamento)}</td></tr>`).join("") +
+      "</tbody></table>";
+  }
+
+  function renderLegend(target) {
+    target.innerHTML = SERIES.map(s =>
+      `<li><span class="sw" style="background:${color(s.code)}"></span>${esc(s.label)}</li>`).join("");
+  }
+
+  // ------------------------------------------------------------------ estado e carga
+  let state = { years: [], yearInfo: [], annual: null, summary: null, total: null };
+
+  function filters() {
+    return {
+      year_start: $("f-start").value,
+      year_end: $("f-end").value,
+      modalidade: $("f-mod").value,
+      rede: $("f-rede").value,
+    };
+  }
+
+  async function load() {
+    const f = filters();
+    if (+f.year_start > +f.year_end) { $("f-end").value = f.year_start; f.year_end = f.year_start; }
+    try {
+      const [annual, summary, total] = await Promise.all([
+        api("/statistics/annual", { ...f, group_by: "segmento" }),
+        api("/statistics/summary", { ...f, group_by: "segmento" }),
+        api("/statistics/annual", { ...f, group_by: "total" }),
+      ]);
+      $("error").hidden = true;
+      state = { ...state, annual, summary, total };
+      render();
+    } catch (err) { showError(err); }
+  }
+
+  function render() {
+    const { annual, summary, total } = state;
+    const years = annual.meta.periodo.anos_com_dados;
+    const lastYear = years[years.length - 1];
+
+    // tiles
+    const tiLast = annual.data.find(r => r.ano === lastYear && r.grupo_codigo === "TI");
+    const totLast = total.data.find(r => r.ano === lastYear);
+    $("t-ti").textContent = pct(tiLast?.taxa_trancamento);
+    $("t-ti-ctx").textContent = `em ${lastYear}`;
+    $("t-all").textContent = pct(totLast?.taxa_trancamento);
+    $("t-all-ctx").textContent = `em ${lastYear}`;
+    $("t-ti-n").textContent = compact(tiLast?.trancadas);
+    $("t-ti-n-ctx").textContent = tiLast ? `de ${nf.format(tiLast.matriculas + tiLast.trancadas)} vínculos em ${lastYear}` : "";
+
+    renderLines($("chart-annual"), annual.data, years);
+    $("table-annual").innerHTML = annualTable(annual.data, years);
+    renderBars($("chart-summary"), summary.data);
+    $("table-summary").innerHTML = summaryTable(summary.data);
+    $("summary-sub").textContent =
+      `Soma de ${years[0]} a ${lastYear} (vínculos-ano, não pessoas). TI = cursos da área CINE 06.`;
+
+    // alertas de comparabilidade
+    const att = state.yearInfo.filter(y => y.comparabilidade === "atencao" && years.includes(y.ano));
+    const cmp = $("comparability");
+    cmp.hidden = att.length === 0;
+    cmp.innerHTML = att.length ? `<details><summary><strong>Atenção à comparação entre anos:</strong>
+      ${att.map(a => a.ano).join(", ")} têm mudanças de coleta ou de classificação (ver detalhes).</summary>
+      <ul>${att.map(a => `<li><strong>${a.ano}:</strong> ${
+        [...a.notas_curadas, ...a.alertas_automaticos].map(esc).join(" ")}</li>`).join("")}</ul></details>` : "";
+
+    // notas
+    const avisos = summary.meta.avisos.filter(a => !a.startsWith("Anos com alerta"));
+    $("notes-list").innerHTML = [
+      "<strong>Unidade:</strong> vínculos aluno–curso no ano. Um mesmo estudante aparece em cada ano em que está vinculado; os números não contam pessoas.",
+      "<strong>Taxa de trancamento</strong> = matrículas trancadas ÷ (matrículas cursando ou formadas + trancadas). Trancamento não é o mesmo que evasão.",
+      "<strong>TI</strong> = cursos classificados na área geral 06 da CINE Brasil (Computação e TIC), como Sistemas de Informação, ADS e Ciência da Computação. Licenciaturas em Computação contam como Educação.",
+      ...avisos.map(esc),
+    ].map(t => `<li>${t}</li>`).join("");
+    $("source").innerHTML = `${esc(summary.meta.fonte.nota)} Fonte: <a href="${esc(summary.meta.fonte.url)}" rel="noopener">${esc(summary.meta.fonte.nome)} — INEP</a>.
+      Classificação: mapeamento v${esc(summary.meta.classificacao.versao_mapeamento)}.
+      <a href="${esc(API)}/methodology" rel="noopener">Metodologia completa</a>.`;
+  }
+
+  async function init() {
+    renderLegend($("legend-annual"));
+    try {
+      const yrs = await api("/years");
+      state.yearInfo = yrs.data;
+      const available = yrs.data.filter(y => y.status === "disponivel").map(y => y.ano);
+      if (!available.length) throw new Error("A base consolidada não tem anos disponíveis.");
+      const opts = available.map(y => `<option value="${y}">${y}</option>`).join("");
+      $("f-start").innerHTML = opts;
+      $("f-end").innerHTML = opts;
+      $("f-start").value = available[0];
+      $("f-end").value = available[available.length - 1];
+    } catch (err) { showError(err); return; }
+    ["f-start", "f-end", "f-mod", "f-rede"].forEach(id => $(id).addEventListener("change", load));
+    let t;
+    window.addEventListener("resize", () => {
+      clearTimeout(t);
+      t = setTimeout(() => state.annual && render(), 150);
+    });
+    load();
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>
